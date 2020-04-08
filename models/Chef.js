@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const ChefSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     avatar: {
         type: String,
