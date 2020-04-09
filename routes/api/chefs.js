@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 
 const Chef = require('../../models/Chef');
-
+const Ingredient = require('../../models/Ingredient');
 
 // @action          POST
 // desc             register a chef
@@ -19,17 +19,17 @@ router.post('/', [
     })
 ],
     async (req, res) => {
+
         const errors = validationResult(req);
+
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
         const { name, bio, avatar } = req.body;
-
-
+        
         try {
             // make sure chef does not already exit
-
             let chef = await Chef.findOne({ name });
 
             if (chef) {
@@ -45,6 +45,7 @@ router.post('/', [
             await chef.save();
 
             res.json(chef);
+
         } catch (err) {
             console.error(err.message);
             res.status(500).send('Server Error')
@@ -55,14 +56,42 @@ router.post('/', [
 // desc             Get all chefs
 // access           Public
 router.get('/', async (req, res) => {
+
     try {
+
         let chefs = await Chef.find();
         res.json(chefs); 
+
     } catch (err) {
+
         console.error(err.message);
-        res.status(500).send('Server Error')
+        res.status(500).send('Server Error');
+
     }
 });
+
+// @action         GET
+// desc            GET A CHEF'S Ingredients
+// access          Public
+router.get('/:chef_id/ingredients', async (req, res) => {
+    try {
+        let chef = await Chef.findById(req.params.chef_id)
+        
+        if (!chef) return res.status(400).json({msg: 'Chef Not Found'});
+        // await chef
+        // await chef.execPopulate()
+        res.json({ingredientIds: chef.ingredients});
+    } catch (err) {
+        console.error(err.message);
+        if (err.path === '_id') {
+            return res.status(400).json({ msg: 'Chef Not Found' });
+        }
+        res.status(500).send('Server Error');
+    }
+});
+
+
+
 
 // @action         GET/SHOW
 // desc            Get a chef by ID
@@ -70,9 +99,7 @@ router.get('/', async (req, res) => {
 router.get('/:chef_id', async (req, res) => {
     try {
         let chef = await Chef.findById(req.params.chef_id);
-        
         if (!chef) res.status(400).json({msg: 'Chef Not Found'});
-
         res.json(chef);
     } catch (err) {
         console.error(err.message);
@@ -83,6 +110,9 @@ router.get('/:chef_id', async (req, res) => {
     }
 });
 
+// @action         PATCH/EDIT
+// desc            Edit a Chef
+// access          Public
 router.patch('/:chef_id', async (req,res) => {
     const { name, bio, avatar } = req.body;
 
@@ -120,5 +150,7 @@ router.patch('/:chef_id', async (req,res) => {
         res.status(500).send('Server Error');
     }
 });
+
+
 
 module.exports = router;
