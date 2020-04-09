@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ChefSchema = new Schema({
+    
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     avatar: {
         type: String,
@@ -20,7 +20,11 @@ const ChefSchema = new Schema({
             ref: 'recipe'
         }
     }]
-})
+});
+
+ChefSchema.virtual('fullName').get(function () {
+    return this.name.first + ' ' + this.name.last;
+  });
 
 module.exports = Chef = mongoose.model('chef', ChefSchema);
 

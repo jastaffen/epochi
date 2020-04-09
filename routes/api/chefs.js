@@ -19,17 +19,17 @@ router.post('/', [
     })
 ],
     async (req, res) => {
+
         const errors = validationResult(req);
+
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
         const { name, bio, avatar } = req.body;
-
-
+        
         try {
             // make sure chef does not already exit
-
             let chef = await Chef.findOne({ name });
 
             if (chef) {
@@ -45,6 +45,7 @@ router.post('/', [
             await chef.save();
 
             res.json(chef);
+
         } catch (err) {
             console.error(err.message);
             res.status(500).send('Server Error')
@@ -55,12 +56,17 @@ router.post('/', [
 // desc             Get all chefs
 // access           Public
 router.get('/', async (req, res) => {
+
     try {
+
         let chefs = await Chef.find();
         res.json(chefs); 
+
     } catch (err) {
+
         console.error(err.message);
-        res.status(500).send('Server Error')
+        res.status(500).send('Server Error');
+
     }
 });
 
@@ -70,9 +76,7 @@ router.get('/', async (req, res) => {
 router.get('/:chef_id', async (req, res) => {
     try {
         let chef = await Chef.findById(req.params.chef_id);
-        
         if (!chef) res.status(400).json({msg: 'Chef Not Found'});
-
         res.json(chef);
     } catch (err) {
         console.error(err.message);

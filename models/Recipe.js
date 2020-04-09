@@ -12,12 +12,10 @@ const RecipeSchema = new Schema({
         required: true
     },
     video: {
-        type: String,
-        required: true
+        type: String
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
     instructions: {
         type: [String],
