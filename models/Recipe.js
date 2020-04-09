@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const RecipeSchema = new Schema({
-    name: {
+    title: {
         type: String,
         required: true,
         unique: true
@@ -24,9 +24,6 @@ const RecipeSchema = new Schema({
     ingredients: [{
         name: {
             type: String,
-             
-            unit: String,
-            description: String
         },
         measurement: {
             type: Number,
@@ -38,9 +35,14 @@ const RecipeSchema = new Schema({
             type: String
         }
     }],
+    published: {
+        type: String,
+        default: Date.now,
+        required: true
+    },
     ingredient: {
         type: Schema.Types.ObjectId,
-        required: true
+        ref: 'ingredient'
     },
     chef: {
         type: Schema.Types.ObjectId,

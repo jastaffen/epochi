@@ -19,12 +19,15 @@ const ChefSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'recipe'
         }
+    }],
+    ingredients: [{
+        ingredient: {
+            type: Schema.Types.ObjectId,
+            ref: 'ingredient'
+        }
     }]
 });
 
-ChefSchema.virtual('fullName').get(function () {
-    return this.name.first + ' ' + this.name.last;
-  });
 
 module.exports = Chef = mongoose.model('chef', ChefSchema);
 

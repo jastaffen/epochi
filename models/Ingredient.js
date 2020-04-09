@@ -23,6 +23,12 @@ const IngredientSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'recipe'
         } 
+    }],
+    chefs: [{
+        chef: {
+            type: Schema.Types.ObjectId,
+            ref: 'chef'
+        }
     }]
 });
 
