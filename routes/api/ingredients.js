@@ -4,6 +4,11 @@ const { check, validationResult } = require('express-validator');
 
 
 const Ingredient = require('../../models/Ingredient');
+const Recipe = require('../../models/Recipe');
+const Chef = require('../../models/Chef');
+
+
+const fetchByGroupingAndModel = require('../../methods/fetchByGroupingAndModel');
 
 // @action          POST
 // desc             register an ingredient
@@ -86,6 +91,48 @@ router.get('/ingredient/:ingredient_id', async (req,res) => {
         if (!ingredient) return res.status(400).json({msg: 'Ingredient Not Found'});
 
         res.json(ingredient);
+
+    } catch (err) {
+        console.error(err.message);
+        if (!ingredient) return res.status(400).json({msg: 'Ingredient Not Found'});
+        res.status(500).send('Server Error')
+    }
+});
+
+// @action          GET
+// desc             GET AN INGREDIENT'S CHEFS
+// access           public
+router.get('/chefs/:ingredient_id', async (req,res) => {    
+    try {
+        let ingredient = await Ingredient.findById(req.params.ingredient_id);
+
+        if (!ingredient) return res.status(400).json({msg: 'Ingredient Not Found'});
+
+        const array = await fetchByGroupingAndModel(ingredient.chefs, Chef);
+        const chefs = await Promise.all(array);
+
+        res.json(chefs);
+
+    } catch (err) {
+        console.error(err.message);
+        if (!ingredient) return res.status(400).json({msg: 'Ingredient Not Found'});
+        res.status(500).send('Server Error')
+    }
+});
+
+// @action          GET
+// desc             GET AN INGREDIENT'S RECIPES
+// access           public
+router.get('/recipes/:ingredient_id', async (req,res) => {    
+    try {
+        let ingredient = await Ingredient.findById(req.params.ingredient_id);
+
+        if (!ingredient) return res.status(400).json({msg: 'Ingredient Not Found'});
+        const selectors = "title image published chef video"
+        const array = await fetchByGroupingAndModel(ingredient.recipes, Recipe, selectors);
+        const recipes = await Promise.all(array);
+
+        res.json(recipes);
 
     } catch (err) {
         console.error(err.message);

@@ -8,6 +8,8 @@ const Chef = require('../../models/Chef');
 const Ingredient = require('../../models/Ingredient');
 const Recipe = require('../../models/Recipe');
 
+const fetchByGroupingAndModel = require('../../methods/fetchByGroupingAndModel');
+
 // @action          POST
 // desc             register a chef
 // access           private/though accessible without auth at the moment
@@ -81,7 +83,7 @@ router.get('/:chef_id/ingredients', async (req, res) => {
         
         if (!chef) return res.status(400).json({msg: 'Chef Not Found'});
         
-        let array = await fetchAllArr(chef.ingredients, Ingredient);
+        let array = await fetchByGroupingAndModel(chef.ingredients, Ingredient);
         let ingredients = await Promise.all(array);
        
         res.json(ingredients);
@@ -103,8 +105,8 @@ router.get('/:chef_id/recipes', async (req, res) => {
         let chef = await Chef.findById(req.params.chef_id);
         
         if (!chef) return res.status(400).json({msg: 'Chef Not Found'});
-        
-        let array = await fetchAllArr(chef.recipes, Recipe);
+        const selector = "title image published ingredient"
+        let array = await fetchByGroupingAndModel(chef.recipes, Recipe, selector);
         let recipes = await Promise.all(array);
        
         res.json(recipes);
@@ -116,12 +118,6 @@ router.get('/:chef_id/recipes', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
-const fetchAllArr = async (group, model) => {
-    return group.map(async el => {
-        return await model.findById(el._id);
-    });
-}
 
 
 // @action         GET/SHOW
