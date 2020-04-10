@@ -42,7 +42,7 @@ router.post('/recipe/:chef_id/:ingredient_id', [
         const ingredient = await Ingredient.findById(ingredient_id);
         if (!ingredient) res.status(400).json({msg: 'Ingredient Not Found'});
         newRecipe.ingredient = ingredient;
-
+        newRecipe.month = ingredient.season;
         // persist to database
         await newRecipe.save();
 
@@ -88,6 +88,16 @@ router.get('/:recipe_id', async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
+    }
+})
+
+router.get('/recipes-by-month/:month', async (req, res) => {
+    try {
+        let recipes = await Recipe.find({ month: req.params.month }).populate('chef', ['name', 'avatar']);
+        res.json(recipes);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('server error')
     }
     
 })

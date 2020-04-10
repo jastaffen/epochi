@@ -37,7 +37,7 @@ const RecipeSchema = new Schema({
     }],
     published: {
         type: String,
-        default: Date.now,
+        default: Date(),
         required: true
     },
     ingredient: {
@@ -47,6 +47,9 @@ const RecipeSchema = new Schema({
     chef: {
         type: Schema.Types.ObjectId,
         ref: 'chef'
+    },
+    month: {
+        type: String
     }
 });
 
