@@ -1,0 +1,74 @@
+nav {
+    letter-spacing: 0.2em;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    padding-bottom: 10px;
+    .home-button {
+        background-image: -webkit-linear-gradient(#B402E8 50%, white 50%);
+        background-size: 100% 50px;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 10px 0px 0px 15px;
+        font-size: 25px;
+        letter-spacing: 0.3em;
+        -webkit-animation: stripes 2s linear infinite;
+        animation: stripes 2s linear infinite;
+
+        &:hover {
+            animation-play-state: paused;
+            -webkit-animation-play-state: paused;
+        }
+    }
+    
+
+    .app-links {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        margin-top: 25px;
+
+        a {
+            position: relative;
+            margin: 0px 11px;
+            &::after {
+              content: '';
+              display: block;
+              height: 0.2px;
+              width: 0;
+              background: transparent;
+              transition: width .5s ease, background-color .5s ease; 
+              -webkit-transition: width .5s ease, background-color .5s ease; 
+              -moz-transition: width .5s ease, background-color .5s ease; 
+            }
+            &:hover::after {
+              width: 100%;
+              background: white;
+            }
+            &:focus {
+              border-bottom: 0.2px solid white;
+              border-right: 0.2px solid white;
+            }
+        }          
+    }
+
+    .auth-button {
+        margin: 10px 10px 0px 0px;
+        font-size: 10px;
+    }
+}
+
+@-webkit-keyframes stripes {
+    100% {
+      background-position: 0 -50px;
+    }
+  }
+  
+  @keyframes stripes {
+    100% {
+      background-position: 0 -50px;
+    }
+  }
+
+  

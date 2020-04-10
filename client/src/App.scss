@@ -1,0 +1,15 @@
+$main-color: #3702E8;
+@import './styles/NavBar';
+
+body {
+    background: $main-color;
+    margin: 0px;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
