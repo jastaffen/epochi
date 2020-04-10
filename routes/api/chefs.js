@@ -6,6 +6,9 @@ mongoose.set('useFindAndModify', false);
 
 const Chef = require('../../models/Chef');
 const Ingredient = require('../../models/Ingredient');
+const Recipe = require('../../models/Recipe');
+
+const fetchByGroupingAndModel = require('../../methods/fetchByGroupingAndModel');
 
 // @action          POST
 // desc             register a chef
@@ -75,12 +78,15 @@ router.get('/', async (req, res) => {
 // access          Public
 router.get('/:chef_id/ingredients', async (req, res) => {
     try {
-        let chef = await Chef.findById(req.params.chef_id)
+
+        let chef = await Chef.findById(req.params.chef_id);
         
         if (!chef) return res.status(400).json({msg: 'Chef Not Found'});
-        // await chef
-        // await chef.execPopulate()
-        res.json({ingredientIds: chef.ingredients});
+        
+        let array = await fetchByGroupingAndModel(chef.ingredients, Ingredient);
+        let ingredients = await Promise.all(array);
+       
+        res.json(ingredients);
     } catch (err) {
         console.error(err.message);
         if (err.path === '_id') {
@@ -90,7 +96,28 @@ router.get('/:chef_id/ingredients', async (req, res) => {
     }
 });
 
+// @action         GET
+// desc            GET A CHEF'S Recipes
+// access          Public
+router.get('/:chef_id/recipes', async (req, res) => {
+    try {
 
+        let chef = await Chef.findById(req.params.chef_id);
+        
+        if (!chef) return res.status(400).json({msg: 'Chef Not Found'});
+        const selector = "title image published ingredient"
+        let array = await fetchByGroupingAndModel(chef.recipes, Recipe, selector);
+        let recipes = await Promise.all(array);
+       
+        res.json(recipes);
+    } catch (err) {
+        console.error(err.message);
+        if (err.path === '_id') {
+            return res.status(400).json({ msg: 'Chef Not Found' });
+        }
+        res.status(500).send('Server Error');
+    }
+});
 
 
 // @action         GET/SHOW
