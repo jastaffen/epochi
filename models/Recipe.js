@@ -26,7 +26,7 @@ const RecipeSchema = new Schema({
             type: String,
         },
         measurement: {
-            type: Number,
+            type: Schema.Types.Decimal128,
         },
         unit: {
             type: String
