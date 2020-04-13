@@ -93,7 +93,10 @@ router.get('/:recipe_id', async (req, res) => {
 
 router.get('/recipes-by-month/:month', async (req, res) => {
     try {
-        let recipes = await Recipe.find({ month: req.params.month }).populate('chef', ['name', 'avatar']);
+        let recipes = await Recipe.find({ month: req.params.month })
+            .populate('chef', ['name', 'avatar'])
+                .select("title image published ingredient");
+
         res.json(recipes);
     } catch (err) {
         console.error(err.message);
