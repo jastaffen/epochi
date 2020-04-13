@@ -48,9 +48,13 @@ router.post('/recipe/:chef_id/:ingredient_id', [
 
         // push recipe into ingredient and chef
         chef.recipes.push(newRecipe);
-        chef.ingredients.push(ingredient)
+        if (!chef.ingredients.ingredient) {
+            chef.ingredients.push(ingredient);
+        }
+    
         ingredient.recipes.push(newRecipe);
-        ingredient.chefs.push(chef)
+        if (!ingredient.chefs.includes(chef)) ingredient.chefs.push(chef);
+        
         // save chef and ingredient
         chef.save();
         ingredient.save();

@@ -15,9 +15,9 @@ const FeaturedRecipe = ({ recipe }) => {
                 <h1>{title}</h1>
                 <img className="rp-image" src={image} alt={title} />
 
-                <div>
-                    <h5>{handleDate()}</h5>
+                <div className="rp-info">
                     <h5>{name}</h5>
+                    <h5>{handleDate()}</h5>
                 </div>
                 
             </div>

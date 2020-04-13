@@ -21,6 +21,16 @@
             width: 400px;
             height: 200px
         }
+
+        .rp-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            h5 {
+                margin: 0px;
+                font-size: 12px;
+            }
+        }
     }
 }
 
@@ -48,10 +58,10 @@
             overflow-y: scroll;
     
             li {
+                cursor: pointer;
                 font-size: 0.7em;
                 border-bottom: 1px solid white;
                 padding: 20px;
-                cursor: pointer;
             }
 
             .r-selected {
