@@ -1,6 +1,4 @@
-.pl {
-    
-}
+
 
 .plr-container {
     display: flex;
@@ -29,6 +27,17 @@
             h5 {
                 margin: 0px;
                 font-size: 12px;
+                padding: 6.5px 0px;
+            }
+            .rp-chef {
+                display: flex;
+                img {
+                    display: inline-block;
+                    width: 25px;
+                    height: 25px;
+                    border-radius: 50%;
+                    padding-right: 5px;
+                }
             }
         }
     }

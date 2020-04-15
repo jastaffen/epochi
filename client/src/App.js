@@ -16,6 +16,7 @@ import ChefLandingPage from './chefs/ChefLandingPage';
 import IngredientLandingPage from './ingredients/IngredientLandingPage';
 import RecipesLandingPage from './recipes/RecipesLandingPage';
 import Login from './login/Login';
+import ChefProfile from './chefs/ChefProfile';
 
 const App = () => (
   <Provider store={store}>
@@ -26,6 +27,7 @@ const App = () => (
         <section>
           <Switch>
             <Route exact path="/chefs" component={ChefLandingPage} />
+            <Route exact path="/chefs/:id" component={ChefProfile} />
             <Route exact path="/ingredients" component={IngredientLandingPage} />
             <Route exact path="/recipes" component={RecipesLandingPage} />
             <Route exact path="/login" component={Login} />

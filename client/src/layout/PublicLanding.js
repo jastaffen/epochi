@@ -11,7 +11,8 @@ import { getRecipesByMonth } from '../actions/recipes';
 
 const PublicLanding = ({ recipes: { recipesOfTheMonth, loading }, getRecipesByMonth }) => {
     const [ i, setI ] = useState(0);
-    let timer;
+    // const [timer, setTimer] = useState(null)
+    // let timer;
 
     useEffect(() => {
         getRecipesByMonth();
@@ -21,7 +22,8 @@ const PublicLanding = ({ recipes: { recipesOfTheMonth, loading }, getRecipesByMo
     useEffect(() => {
         let newNum = i;
         if (!loading) {
-           timer = setTimeout(() => {
+          const timer = setTimeout(() => {
+            
             //    checks to see that i is less than the number of recipes
                if (i < recipesOfTheMonth.length - 1) {
                     newNum = newNum + 1;
@@ -30,14 +32,16 @@ const PublicLanding = ({ recipes: { recipesOfTheMonth, loading }, getRecipesByMo
                } else if (i === recipesOfTheMonth.length - 1) {
                     setI(0)
                }
-           }, 10000)
+           }, 8000);
+           return () => clearTimeout(timer);
        }
-    }, [loading, i, recipesOfTheMonth])
+    }, [loading, i, recipesOfTheMonth, setI])
 
     const selectBox = (e, index) => {
         setI(index);
-        clearTimeout(timer);
+        // clearTimeout(timer);
     }
+
 
     return (
         <div className="pl">

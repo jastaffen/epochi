@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const FeaturedRecipe = ({ recipe }) => {
 
-    const { published, chef: { name, avatar }, title, image } = recipe;
+    const { published, chef: { name, avatar, _id }, title, image } = recipe;
 
     const handleDate = () => {
         return published.split(' ').slice(1, 4).join(' ');
@@ -16,8 +16,14 @@ const FeaturedRecipe = ({ recipe }) => {
                 <img className="rp-image" src={image} alt={title} />
 
                 <div className="rp-info">
-                    <h5>{name}</h5>
+                
+                    <div className="rp-chef">
+                        <img src={avatar} alt={name} />
+                        <h5>{name}</h5>  
+                    </div>
+
                     <h5>{handleDate()}</h5>
+                    
                 </div>
                 
             </div>

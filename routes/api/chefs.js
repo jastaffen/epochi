@@ -62,7 +62,7 @@ router.get('/', async (req, res) => {
 
     try {
 
-        let chefs = await Chef.find();
+        let chefs = await Chef.find().select("name avatar");
         res.json(chefs); 
 
     } catch (err) {
