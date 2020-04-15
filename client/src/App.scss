@@ -1,5 +1,7 @@
 $main-color: #3702E8;
 @import './styles/NavBar';
+@import './styles/PublicLanding';
+@import './styles/ChefsRoute';
 
 body {
     background: $main-color;
