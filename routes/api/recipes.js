@@ -42,7 +42,7 @@ router.post('/recipe/:chef_id/:ingredient_id', [
         const ingredient = await Ingredient.findById(ingredient_id);
         if (!ingredient) res.status(400).json({msg: 'Ingredient Not Found'});
         newRecipe.ingredient = ingredient;
-        newRecipe.month = ingredient.season[0];
+        newRecipe.month = ingredient.season.join(' ');
         // persist to database
         await newRecipe.save();
 
@@ -97,7 +97,7 @@ router.get('/:recipe_id', async (req, res) => {
 
 router.get('/recipes-by-month/:month', async (req, res) => {
     try {
-        let recipes = await Recipe.find({ month: req.params.month })
+        let recipes = await Recipe.find({ month: {$regex : `.*${req.params.month}.*` }})
             .populate('chef', ['name', 'avatar'])
                 .select("title image published ingredient");
         
