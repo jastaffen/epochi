@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const ChefCard = ({ chef }) => {
+    const { _id, avatar, name } = chef;
+
     return (
-        <Link to={`/chefs/${chef._id}`} >
+        <Link to={`/chefs/${_id}`} >
             <div className="chef-card">
-                <img src={chef.avatar} />
-                <h2>{chef.name}</h2>
+                <img className="circle-image" src={avatar} alt={name} />
+                <h2>{name}</h2>
             </div>
         </Link>
     )

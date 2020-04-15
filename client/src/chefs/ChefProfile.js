@@ -2,17 +2,20 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import RecipesByChef from './RecipesByChef';
+import RecipesByChef from './RecipesByChefContainer';
 
 import { getChef } from '../actions/chefs';
 
 const ChefProfile = ( { getChef, match, chefs: { selectedChef, loading } } ) => {
     useEffect(() => {
         getChef(match.params.id);
-    })
+    }, [getChef, match.params.id]);
+
     const { name, bio, avatar } = selectedChef;
+    
     return (
-        <div class="cp-container">
+    <>
+        <div className="cp-container">
             {!loading && selectedChef && 
             <>
                 <div className="chef-profile">
@@ -21,14 +24,16 @@ const ChefProfile = ( { getChef, match, chefs: { selectedChef, loading } } ) => 
                     <p>{bio}</p>
                 </div>
 
-                <RecipesByChef />
-                <hr />
+                <RecipesByChef id={match.params.id} name={name} />
+                
+                
             </>
             }
-            {/* <>
-                <RecipesByChef />
-            </> */}
+            
         </div>
+
+        <hr />
+    </>
     )
 }
 

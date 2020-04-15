@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { GET_ALL_CHEFS, GET_CHEF, CHEF_ERROR } from './types';
 
+
+// retrives all chefs
 export const getAllChefs = () => async dispatch => {
     try {
         let res = await axios.get('http://localhost:5400/api/chefs');
@@ -17,6 +19,8 @@ export const getAllChefs = () => async dispatch => {
     }
 }
 
+
+// retrieves a particular chef by id--> selected Chef
 export const getChef = (id) => async dispatch => {
     try {
         const res = await axios.get(`http://localhost:5400/api/chefs/${id}`)
@@ -31,3 +35,4 @@ export const getChef = (id) => async dispatch => {
         })
     }
 }
+

@@ -1,12 +1,9 @@
 import { GET_ALL_CHEFS, GET_CHEF, CHEF_ERROR } from '../actions/types';
-import { stat } from 'fs';
 
 const initialState = {
     allChefs: [],
     chefsByIngredient: [],
     selectedChef: {},
-    selectedChefRecipes: [],
-    selectedChefIngredients: [],
     loading: true,
     error: []
 }
@@ -18,6 +15,7 @@ export default function (state = initialState, action) {
         case GET_ALL_CHEFS: 
             return {
                 ...state,
+                selectedChef: {},
                 allChefs: payload,
                 loading: false
             }

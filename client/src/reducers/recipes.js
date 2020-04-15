@@ -1,10 +1,10 @@
-import { GET_RECIPES_BY_MONTH, RECIPE_ERROR } from '../actions/types';
+import { GET_RECIPES_BY_MONTH, RECIPE_ERROR, GET_RECIPES_BY_CHEF } from '../actions/types';
 
 const initialState = {
     recipesOfTheMonth: [],
     recipesByChef: [],
     recipesByIngredient: [],
-    recipe: {},
+    selectedRecipe: {},
     loading: true,
     error: ''
 }
@@ -18,6 +18,14 @@ export default function(state = initialState, action) {
                 recipesOfTheMonth: payload,
                 loading: false
             }
+
+        case GET_RECIPES_BY_CHEF: 
+            return {
+                ...state,
+                recipesByChef: payload,
+                loading: false
+            }
+            
         case RECIPE_ERROR: 
             return {
                 ...state,
