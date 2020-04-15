@@ -16,7 +16,8 @@ const RecipesByChefContainer = ({ getChefsRecipes, chefRecipes, id, name }) => {
             <h1>{name}'s Recipes</h1>
             {chefRecipes && chefRecipes.map(recipe => (
                 <div key={recipe._id} className="cr-card">
-                    <img className="circle-image cr-links" src={recipe.image} />
+                    <img className="circle-image cr-links" 
+                    src={recipe.image} alt={recipe.name} />
                 </div>
             ))}
         </div>

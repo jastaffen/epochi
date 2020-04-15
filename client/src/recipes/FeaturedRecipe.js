@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const FeaturedRecipe = ({ recipe }) => {
@@ -17,10 +18,12 @@ const FeaturedRecipe = ({ recipe }) => {
 
                 <div className="rp-info">
                 
-                    <div className="rp-chef">
-                        <img src={avatar} alt={name} />
-                        <h5>{name}</h5>  
-                    </div>
+                    <Link to={`/chefs/${_id}`}>
+                        <div className="rp-chef">
+                            <img src={avatar} alt={name} />
+                            <h5>{name}</h5>  
+                        </div>
+                    </Link>
 
                     <h5>{handleDate()}</h5>
                     

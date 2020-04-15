@@ -58,7 +58,7 @@ router.post('/', [
 // access           public
 router.get('/:month', async (req,res) => {
     try {
-        let ingredients = await Ingredient.find({ season: req.params.month });
+        let ingredients = await Ingredient.find({ season: req.params.month } );
 
         res.json(ingredients);
 

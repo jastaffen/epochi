@@ -39,13 +39,12 @@ const PublicLanding = ({ recipes: { recipesOfTheMonth, loading }, getRecipesByMo
 
     const selectBox = (e, index) => {
         setI(index);
-        // clearTimeout(timer);
     }
 
 
     return (
         <div className="pl">
-            {!loading && recipesOfTheMonth.length > 1 ?
+            {!loading && recipesOfTheMonth.length >= 1 ?
                 <div className="plr-container">
                     <SelectorBox selectBox={selectBox} recipes={recipesOfTheMonth} recipe={recipesOfTheMonth[i]} /> 
                     <FeaturedRecipe recipe={recipesOfTheMonth[i]} /> 
