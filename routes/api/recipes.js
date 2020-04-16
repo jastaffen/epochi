@@ -86,7 +86,7 @@ router.get('/', async (req, res) => {
 // access           Public
 router.get('/:recipe_id', async (req, res) => {
     try {   
-        let recipe = await Recipe.findById(req.params.recipe_id);
+        let recipe = await Recipe.findById(req.params.recipe_id).populate('chef ingredient');
         if (!recipe) res.status(400).json({msg: 'Recipe Not Found'});
         res.json(recipe);
     } catch (err) {
