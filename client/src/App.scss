@@ -19,7 +19,7 @@ a {
 
 .item-container {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -32,4 +32,25 @@ a {
     &:hover {
         transform: scale(1.05);
     } 
+}
+
+.dropdown {
+    position: relative;
+    top: 25px;
+    display: flex;
+    justify-content: center;
+
+    select {
+        background: $main-color;
+        border: 1px solid blue;
+        width: 150px;
+        height: 75px;
+        font-size: 25px;
+    }
+}
+
+.hover {
+    &:hover {
+        transform: scale(1.01);
+    }
 }

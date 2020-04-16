@@ -18,6 +18,7 @@ import RecipesLandingPage from './recipes/RecipesLandingPage';
 import Login from './login/Login';
 import ChefProfile from './chefs/ChefProfile';
 import IngredientRecipes from './ingredients/IngredientRecipes';
+import RecipeProfile from './recipes/RecipeProfile';
 
 const App = () => (
   <Provider store={store}>
@@ -32,6 +33,7 @@ const App = () => (
             <Route exact path="/ingredients" component={ IngredientLandingPage } />
             <Route exact path="/:ingredientId/recipes" component={ IngredientRecipes } />
             <Route exact path="/recipes" component={ RecipesLandingPage } />
+            <Route exact path="/recipes/:recipeId" component={ RecipeProfile } />
             <Route exact path="/login" component={ Login } />
           </Switch>
         </section>

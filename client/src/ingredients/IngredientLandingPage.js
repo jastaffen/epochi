@@ -14,11 +14,7 @@ const IngredientLandingPage = ({
         loading, ingredientsByMonth 
     }}) => {
     
-    const months = [ 
-        "January", "February", "March", 
-        "April", "May", "June", "July", "August", 
-        "September", "October", "November", "December" 
-    ];
+    
     const [ month, setMonth ] = useState(formatMonth());
 
     useEffect(() => {
@@ -31,7 +27,7 @@ const IngredientLandingPage = ({
 
     return(
         <>
-            <Dropdown months={months} month={month} 
+            <Dropdown month={month} 
                 monthChange={monthChange} 
             />
             { !loading && 

@@ -13,8 +13,14 @@ const FeaturedRecipe = ({ recipe }) => {
     return (
         <div className="rp-container">
             <div className="rp-link">
-                <h1>{title}</h1>
-                <img className="rp-image" src={image} alt={title} />
+                
+                    <h1>{title}</h1>
+
+                    <Link to={`/recipes/${recipe._id}`}>
+                        <img className="rp-image hover" 
+                            src={image} alt={title} 
+                        />
+                    </Link>
 
                 <div className="rp-info">
                 

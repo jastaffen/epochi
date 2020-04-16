@@ -7,6 +7,7 @@ import RecipesByChef from './RecipesByChefContainer';
 import { getChef } from '../actions/chefs';
 
 const ChefProfile = ( { getChef, match, chefs: { selectedChef, loading } } ) => {
+    
     useEffect(() => {
         getChef(match.params.id);
     }, [getChef, match.params.id]);

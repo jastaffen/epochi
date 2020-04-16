@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 const IngredientsContainer = ({ ingredientsByMonth }) => {
 
     return(
+
         <div className="item-container ing-container">
             {ingredientsByMonth.map(ingredient => (
                 <Link to={`/${ingredient._id}/recipes`} key={ingredient._id}>
@@ -18,6 +19,7 @@ const IngredientsContainer = ({ ingredientsByMonth }) => {
                 </Link>
             ))}
         </div>
+        
     )
 }
 

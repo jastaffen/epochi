@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Dropdown = ({ months, month, monthChange }) => {
-
+const Dropdown = ({ month, monthChange }) => {
+    const months = [ 
+        "January", "February", "March", 
+        "April", "May", "June", "July", "August", 
+        "September", "October", "November", "December" 
+    ];
 
     return(
-        <div className="ing-dropdown">
+        <div className="dropdown">
             <select value={ month } onChange={monthChange}>
 
                 {months.map(month => 
@@ -20,7 +24,6 @@ const Dropdown = ({ months, month, monthChange }) => {
 }
 
 Dropdown.propTypes = {
-    months: PropTypes.array.isRequired,
     month: PropTypes.string.isRequired,
     monthChange: PropTypes.func.isRequired
 }
