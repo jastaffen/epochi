@@ -3,6 +3,7 @@ $main-color: #3702E8;
 @import './styles/PublicLanding';
 @import './styles/ChefsRoute';
 @import './styles/IngredientsRoute';
+@import './styles/RecipesRoute';
 
 body {
     background: $main-color;
@@ -14,6 +15,12 @@ body {
 a {
     text-decoration: none;
     color: inherit;
+}
+
+.item-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 .circle-image {

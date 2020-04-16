@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -31,9 +32,13 @@ const IngredientLandingPage = ({
     return(
         <>
             <Dropdown months={months} month={month} 
-            monthChange={monthChange} />
+                monthChange={monthChange} 
+            />
             { !loading && 
-                <IngredientsContainer ingredientsByMonth={ingredientsByMonth} /> }
+                <IngredientsContainer 
+                    ingredientsByMonth={ingredientsByMonth} 
+                /> 
+            }
         </>
     )
 }
@@ -47,4 +52,4 @@ const msp = state => ({
     ingredients: state.ingredients
 })
 
-export default connect(msp, { getIngredientsByMonth })(IngredientLandingPage);
+export default connect(msp, { getIngredientsByMonth })(withRouter(IngredientLandingPage));
