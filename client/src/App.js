@@ -17,21 +17,22 @@ import IngredientLandingPage from './ingredients/IngredientLandingPage';
 import RecipesLandingPage from './recipes/RecipesLandingPage';
 import Login from './login/Login';
 import ChefProfile from './chefs/ChefProfile';
+import IngredientRecipes from './ingredients/IngredientRecipes';
 
 const App = () => (
   <Provider store={store}>
     <Router>
       <>
         <NavBar />
-        <Route exact path="/" component={PublicLanding} />
+        <Route exact path="/" component={ PublicLanding } />
         <section>
           <Switch>
-            <Route exact path="/chefs" component={ChefLandingPage} />
-            <Route exact path="/chefs/:id" component={ChefProfile} />
-            <Route exact path="/ingredients" component={IngredientLandingPage} />
-            <Route exact path="/:ingrediend_id/recipes" />
-            <Route exact path="/recipes" component={RecipesLandingPage} />
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/chefs" component={ ChefLandingPage } />
+            <Route exact path="/chefs/:id" component={ ChefProfile } />
+            <Route exact path="/ingredients" component={ IngredientLandingPage } />
+            <Route exact path="/:ingrediend_id/recipes" component={ IngredientRecipes } />
+            <Route exact path="/recipes" component={ RecipesLandingPage } />
+            <Route exact path="/login" component={ Login } />
           </Switch>
         </section>
       </>
