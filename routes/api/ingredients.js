@@ -60,6 +60,11 @@ router.get('/:month', async (req,res) => {
     try {
         let ingredients = await Ingredient.find({ season: req.params.month } );
 
+        // sort ingredients alphabetically
+        ingredients = ingredients
+            .sort((ing1, ing2) => 
+            ing1.name.localeCompare(ing2.name));
+
         res.json(ingredients);
 
     } catch (err) {
@@ -82,7 +87,7 @@ router.get('/', async (req,res) => {
     }
 });
 // @action          GET
-// desc             GET ALL INGREDIENT
+// desc             GET INGREDIENT BY ID
 // access           public
 router.get('/ingredient/:ingredient_id', async (req,res) => {    
     try {
@@ -128,7 +133,7 @@ router.get('/recipes/:ingredient_id', async (req,res) => {
         let ingredient = await Ingredient.findById(req.params.ingredient_id);
 
         if (!ingredient) return res.status(400).json({msg: 'Ingredient Not Found'});
-        const selectors = "title image published chef video"
+        const selectors = "title image published chef video";
         const array = await fetchByGroupingAndModel(ingredient.recipes, Recipe, selectors);
         const recipes = await Promise.all(array);
 

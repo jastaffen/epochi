@@ -2,22 +2,39 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Dropdown from '../layout/Dropdown';
+import IngredientsContainer from './IngredientsContainer';
+
 import { getIngredientsByMonth } from '../actions/ingredients';
 import { formatMonth } from '../utils/dateTime';
 
 const IngredientLandingPage = ({ 
     getIngredientsByMonth, ingredients: { 
-        loading, ingredientsByMOnth 
+        loading, ingredientsByMonth 
     }}) => {
-
+    
+    const months = [ 
+        "January", "February", "March", 
+        "April", "May", "June", "July", "August", 
+        "September", "October", "November", "December" 
+    ];
     const [ month, setMonth ] = useState(formatMonth());
 
     useEffect(() => {
         getIngredientsByMonth(month);
-    }, [getIngredientsByMonth, month])
+    }, [getIngredientsByMonth, month]);
+
+    const monthChange = (e) => {
+        setMonth(e.target.value)
+    }
 
     return(
-        <>All of the ingredients?</>
+        <>
+            <Dropdown months={months} month={month} 
+            monthChange={monthChange} />
+            { !loading && 
+                <IngredientsContainer ingredientsByMonth={ingredientsByMonth} /> }
+        </>
     )
 }
 

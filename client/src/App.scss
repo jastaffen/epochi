@@ -2,6 +2,7 @@ $main-color: #3702E8;
 @import './styles/NavBar';
 @import './styles/PublicLanding';
 @import './styles/ChefsRoute';
+@import './styles/IngredientsRoute';
 
 body {
     background: $main-color;
@@ -15,3 +16,13 @@ a {
     color: inherit;
 }
 
+.circle-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    
+    &:hover {
+        transform: scale(1.05);
+    } 
+}
