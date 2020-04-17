@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import IngredientList from './IngredientList';
 import InstructionList from './InstructionList';
+import SendRecipe from './SendRecipe';
 
 import { getRecipeById } from '../actions/recipes';
 
@@ -35,17 +36,21 @@ const RecipeProfile = ({ getRecipeById, recipes: { loading, selectedRecipe }, ma
                         </div>
 
                         <div className="recipe-ings-inst">
-                            {ingredients && ingredient && 
+                            {ingredients && ingredient && instructions && 
                             <>
                                 <IngredientList ingredients={ingredients} /> 
                                 <InstructionList instructions={instructions} />
+                                
                             </>
                             }
                         </div>
+                            
 
                         
                     </div>
-                    
+                    {ingredients && instructions && 
+                        <SendRecipe ingredients={ingredients} instructions={instructions} />
+                    }
                 </div>
             }
         </>
