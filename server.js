@@ -22,6 +22,7 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/chefs', require('./routes/api/chefs'));
 app.use('/api/recipes', require('./routes/api/recipes'));
 app.use('/api/ingredients', require('./routes/api/ingredients'));
+app.use('/api/send-text', require('./routes/api/send-text'));
 
 
 const PORT = process.env.PORT || 5400;
