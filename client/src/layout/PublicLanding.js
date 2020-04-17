@@ -6,17 +6,16 @@ import FeaturedRecipe from '../recipes/FeaturedRecipe';
 import SelectorBox from '../recipes/SelectorBox';
 
 import { getRecipesByMonth } from '../actions/recipes';
-
+import { formatMonth } from '../utils/dateTime';
 
 
 const PublicLanding = ({ recipes: { recipesOfTheMonth, loading }, getRecipesByMonth }) => {
     const [ i, setI ] = useState(0);
-    // const [timer, setTimer] = useState(null)
-    // let timer;
+    
 
     useEffect(() => {
-        getRecipesByMonth();
-    }, [getRecipesByMonth])
+        getRecipesByMonth(formatMonth());
+    }, [getRecipesByMonth]);
 
     // infinitely carousels through the recipes from the current month
     useEffect(() => {
@@ -29,9 +28,10 @@ const PublicLanding = ({ recipes: { recipesOfTheMonth, loading }, getRecipesByMo
                     newNum = newNum + 1;
                     setI(newNum)
             //     if i is about to be great than our recipes array set back to the first
-               } else if (i === recipesOfTheMonth.length - 1) {
+               } else {
                     setI(0)
                }
+               
            }, 8000);
            return () => clearTimeout(timer);
        }
@@ -39,13 +39,12 @@ const PublicLanding = ({ recipes: { recipesOfTheMonth, loading }, getRecipesByMo
 
     const selectBox = (e, index) => {
         setI(index);
-        // clearTimeout(timer);
     }
 
 
     return (
         <div className="pl">
-            {!loading && recipesOfTheMonth.length > 1 ?
+            {!loading && recipesOfTheMonth.length >= 1 ?
                 <div className="plr-container">
                     <SelectorBox selectBox={selectBox} recipes={recipesOfTheMonth} recipe={recipesOfTheMonth[i]} /> 
                     <FeaturedRecipe recipe={recipesOfTheMonth[i]} /> 

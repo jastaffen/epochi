@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -15,9 +16,10 @@ const RecipesByChefContainer = ({ getChefsRecipes, chefRecipes, id, name }) => {
         <div className="cr-container">
             <h1>{name}'s Recipes</h1>
             {chefRecipes && chefRecipes.map(recipe => (
-                <div key={recipe._id} className="cr-card">
-                    <img className="circle-image cr-links" src={recipe.image} />
-                </div>
+                <Link to={`/recipes/${recipe._id}`} key={recipe._id} className="cr-card">
+                    <img className="circle-image cr-links" 
+                    src={recipe.image} alt={recipe.name} />
+                </Link>
             ))}
         </div>
     )

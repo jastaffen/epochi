@@ -17,7 +17,8 @@
         }
         img {
             width: 400px;
-            height: 200px
+            height: 200px;
+            object-fit: cover
         }
 
         .rp-info {
@@ -35,6 +36,7 @@
                     display: inline-block;
                     width: 25px;
                     height: 25px;
+                    object-fit: cover;
                     border-radius: 50%;
                     padding-right: 5px;
                 }
@@ -60,9 +62,9 @@
         width: auto;
     
         ul {
+
             list-style-type: none;
             padding: 0px;
-            
             margin-top: 0px;
             overflow-y: scroll;
     
@@ -71,6 +73,8 @@
                 font-size: 0.7em;
                 border-bottom: 1px solid white;
                 padding: 20px;
+                height: 20px;
+                text-align: left;
             }
 
             .r-selected {
@@ -79,3 +83,4 @@
         }
     }
 }
+

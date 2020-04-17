@@ -1,9 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const IngredientLandingPage = () => {
+import Dropdown from '../layout/Dropdown';
+import IngredientsContainer from './IngredientsContainer';
+
+import { getIngredientsByMonth } from '../actions/ingredients';
+import { formatMonth } from '../utils/dateTime';
+
+const IngredientLandingPage = ({ 
+    getIngredientsByMonth, ingredients: { 
+        loading, ingredientsByMonth 
+    }}) => {
+    
+    
+    const [ month, setMonth ] = useState(formatMonth());
+
+    useEffect(() => {
+        getIngredientsByMonth(month);
+    }, [getIngredientsByMonth, month]);
+
+    const monthChange = (e) => {
+        setMonth(e.target.value)
+    }
+
     return(
-        <>All of the ingredients?</>
+        <>
+            <Dropdown month={month} 
+                monthChange={monthChange} 
+            />
+            { !loading && 
+                <IngredientsContainer 
+                    ingredientsByMonth={ingredientsByMonth} 
+                /> 
+            }
+        </>
     )
 }
 
-export default IngredientLandingPage;
+IngredientLandingPage.propTypes = {
+    getIngredientsByMonth: PropTypes.func.isRequired,
+    ingredients: PropTypes.object.isRequired
+}
+
+const msp = state => ({
+    ingredients: state.ingredients
+})
+
+export default connect(msp, { getIngredientsByMonth })(withRouter(IngredientLandingPage));

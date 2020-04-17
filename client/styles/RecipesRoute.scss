@@ -1,0 +1,109 @@
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 25px;
+    margin: 40px;
+    h3 {
+        font-size: 15px;
+        text-align: center;
+        width: 150px;
+    }
+}
+
+.recipe-profile {
+    position: relative;
+    top: 20px;
+    background-color: white;
+    padding-bottom: 50px;
+    padding-top: 10px;
+
+    .title {
+        color: black;
+        padding: 0px;
+        text-align: left;
+        margin: 0px 30px;
+    }
+
+    .recipe-info {
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        justify-content: flex-start;
+
+        .recipe-desc {
+            
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            
+            padding: 0px 10px;
+
+            p {
+                color: black;
+                margin: 0px 10px;
+                position: relative;
+                bottom: -20px;
+                line-height: 1.5;
+                width: 400px;
+
+                span {
+                    display: block;
+                    font-weight: 800;
+                    letter-spacing: 0.5em;
+                }
+            }
+            img {
+                width: 400px;
+                height: 300px;
+                margin-left: 10px;
+            }
+        }
+        
+
+        .recipe-ings-inst {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            top: 35px;
+            margin: 0px 50px;
+        
+            ul {
+                list-style-type: none;
+                border: 1px solid black;
+                width: 350px;
+                padding: 0px;
+                margin: 0px;
+                height: auto;
+
+                .first {
+                    font-weight: 600;
+                    border-bottom: 3px solid black;
+                    letter-spacing: 0.1em;
+                }
+
+                li {
+                    position: relative;
+                    font-size: 12px;
+                    padding: 10px;
+                    border-bottom: 1px solid black;
+                    text-align: center;
+                    color: black;
+                    
+                    &:last-child {
+                        border: none;
+                        padding: 10px;
+                        margin-bottom: 0px;
+                    }
+                }
+                &:first-child {
+                    height: 320px;
+                    overflow-y: scroll;
+                }
+            }
+        }
+    }    
+}

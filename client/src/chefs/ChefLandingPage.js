@@ -13,7 +13,7 @@ const ChefLandingPage = ({ getAllChefs, chefs: { allChefs, loading } }) => {
     }, [getAllChefs])
 
     return(
-        <div className="cpl-container">
+        <div className="cpl-container item-container">
             {!loading && allChefs.map(chef => 
                 <ChefCard key={chef._id} chef={chef} />
             )}
