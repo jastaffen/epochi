@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import IngredientList from './IngredientList';
-// import RecipeInstructions from './RecipeInstructions';
+import InstructionList from './InstructionList';
 
 import { getRecipeById } from '../actions/recipes';
 
@@ -20,22 +20,30 @@ const RecipeProfile = ({ getRecipeById, recipes: { loading, selectedRecipe }, ma
         <>
             
             {!loading && selectedRecipe && 
-                <div>
-                    <h1>{title}</h1>
+                <div className="recipe-profile">
+                    <h1 className="title">{title}</h1>
                     { chef &&
                     <Link to={`/chefs/${chef._id}`}>
-                        <h5 id="rp-chef-link">by {chef.name}</h5>
+                        <h5 className="title" id="rp-chef-link">by {chef.name}</h5>
                     </Link>
                     }
-                    
-                    <img src={image} alt={title} width={400} height={200} />
-                    <p>{description}</p>
-                    <div>
-                        {ingredients && ingredient && 
-                            <IngredientList ingredients={ingredients} 
-                                ingredient={ingredient} 
-                            /> 
-                        }
+                    <div className="recipe-info">
+
+                        <div className="recipe-desc">
+                            <img src={image} alt={title} />
+                            <p><span>Description</span>{description}</p>
+                        </div>
+
+                        <div className="recipe-ings-inst">
+                            {ingredients && ingredient && 
+                            <>
+                                <IngredientList ingredients={ingredients} /> 
+                                <InstructionList instructions={instructions} />
+                            </>
+                            }
+                        </div>
+
+                        
                     </div>
                     
                 </div>
