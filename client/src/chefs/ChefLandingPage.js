@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ChefCard from './ChefCard';
+import Loading from '../layout/Loading';
 
 import { getAllChefs } from '../actions/chefs';
 
@@ -14,9 +15,14 @@ const ChefLandingPage = ({ getAllChefs, chefs: { allChefs, loading } }) => {
 
     return(
         <div className="cpl-container item-container">
-            {!loading && allChefs.map(chef => 
-                <ChefCard key={chef._id} chef={chef} />
-            )}
+            {!loading ?
+            
+                allChefs.map(chef => 
+                <ChefCard key={chef._id} chef={chef} />)
+                :
+
+                <Loading />
+            }
         </div>
     )
 }

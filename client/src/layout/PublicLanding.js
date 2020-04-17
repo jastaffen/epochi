@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import FeaturedRecipe from '../recipes/FeaturedRecipe';
 import SelectorBox from '../recipes/SelectorBox';
+import Loading from './Loading';
 
 import { getRecipesByMonth } from '../actions/recipes';
 import { formatMonth } from '../utils/dateTime';
@@ -48,7 +49,10 @@ const PublicLanding = ({ recipes: { recipesOfTheMonth, loading }, getRecipesByMo
                 <div className="plr-container">
                     <SelectorBox selectBox={selectBox} recipes={recipesOfTheMonth} recipe={recipesOfTheMonth[i]} /> 
                     <FeaturedRecipe recipe={recipesOfTheMonth[i]} /> 
-                </div>: null}
+                </div>: 
+                
+                <Loading />
+            }
         </div>
     )
 }
