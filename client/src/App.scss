@@ -92,16 +92,26 @@ img {
         margin-top: 10px;
         color: black;
         margin: 10px;
+        opacity: 0.9;
     }
 
     input:valid + span:after {
         content: '   ✓';    
         color: green;
-        
     }
 
     input:invalid + span:after {
         content: '   X';
         color: red;
+    }
+}
+
+#loading {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    img {
+        width: 300px;
+        height: 300px;
     }
 }

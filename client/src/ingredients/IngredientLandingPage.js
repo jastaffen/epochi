@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import Dropdown from '../layout/Dropdown';
 import IngredientsContainer from './IngredientsContainer';
+import Loading from '../layout/Loading';
 
 import { getIngredientsByMonth } from '../actions/ingredients';
 import { formatMonth } from '../utils/dateTime';
@@ -30,10 +31,14 @@ const IngredientLandingPage = ({
             <Dropdown month={month} 
                 monthChange={monthChange} 
             />
-            { !loading && 
+            { !loading ? 
                 <IngredientsContainer 
                     ingredientsByMonth={ingredientsByMonth} 
                 /> 
+
+                : 
+
+                <Loading />
             }
         </>
     )
