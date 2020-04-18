@@ -1,14 +1,54 @@
 body {
     margin: 0px;
     padding: 0px;
-    color: #3702E8;
+    color: white;
+    background: #3702E8
 }
 
-main {
+main, .navbar {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+hr {
+    width: inherit;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.flex-button {
+    display: flex;
+}
+
+.button {
+    display: inline-block;
+    margin: 20px 5px;
+    padding: 10px;
+    width: 200px;
+    height: 75px;
+    background: #3702E8;
+    border: 2px solid rgb(13, 13, 50);
+    border-radius: 40%;
+    color: white;
+    font-size: 20px;
+    outline: none;
+    transition: border-radius .5s ease-in-out;
+}
+
+.button:hover {
+    background: rgb(60, 0, 255);
+    border-radius: 0%;
+}
+
+.button:active {
+    background: rgb(102, 57, 252);
 }
 
 .form-field {
@@ -23,4 +63,10 @@ main {
 .form-field:focus {
     padding: 12px;
     border: 3px solid #3702E8;
+}
+
+#logout {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }

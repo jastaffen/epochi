@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import FormField from '../forms/FormField';
+
+
 
 const Login = () => {
     const [ username, setUsername ] = useState('');
     const [ pw, setPw ] = useState('');
     const [ confPw, setconfPw ] = useState('');
     let history = useHistory();
+
+
+    if (localStorage.getItem('token')) {
+        return <Redirect to="/dashboard" />
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
