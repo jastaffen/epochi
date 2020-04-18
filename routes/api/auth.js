@@ -1,19 +1,33 @@
 const express = require('express');
 const router = express.Router();
 const decode = require('../../secrets/auth');
-const config = require('config')
+const config = require('config');
+const jwt = require('jsonwebtoken');
 
 router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    const pw = await decode(password);
+    const { username, pw } = req.body;
+    const password = await decode(pw);
     if (username === config.get('userLogin.username')) {
-        if (pw == parseInt(config.get('userLogin.password'))) {
-            return res.json({isAuthenticated: true})
+        if (password == config.get('userLogin.password')) {
+            const payload = {
+                username,
+                password
+            }
+            jwt.sign(
+                payload,
+                config.get('jwtSecret'),
+                { expiresIn: 360000 },
+                (err, token) => {
+                    if (err) throw err;
+                    res.json({ isAuthenticated: true, token });
+                }
+            )
+            
         } else {
-            res.send('Invalid password or username')
+            res.json({ msg: 'Invalid password or username' })
         }
     } else {
-        res.send('Invalid password or username');
+        res.json({ msg: 'Invalid password or username' });
     }
     
 });

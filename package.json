@@ -7,7 +7,10 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "admin": "npm start --prefix admin-portal",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "prod": "concurrently \"npm run server\" \"npm run admin\"",
+    "prod-dev": "concurrently \"npm run server\" \"npm run client\" \"npm run admin\""
   },
   "author": "jack staffen",
   "license": "MIT",
@@ -17,6 +20,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "gravatar": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.7",
     "nodemon": "^2.0.3",
     "twilio": "^3.42.2"

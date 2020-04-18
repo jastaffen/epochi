@@ -13,9 +13,9 @@ const NavBar = () => {
                 <Link className="underline" to="/recipes">RECIPES</Link> 
             </div>
             
-            <div className="auth-button">
+            {/* <div className="auth-button">
                 <Link to="/login">LOGIN</Link>
-            </div>
+            </div> */}
 
         </nav>
     )
