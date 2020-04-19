@@ -70,3 +70,26 @@ hr {
     top: 10px;
     right: 10px;
 }
+
+.ac-container {
+    display: flex;
+}
+
+.chef-card {
+    margin: 10px 20px;
+}
+
+.chef-card h5 {
+    text-align: center;
+}
+
+.circle-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.circle-image:hover {
+    transform: scale(1.1);
+}

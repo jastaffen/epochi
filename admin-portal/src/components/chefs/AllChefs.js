@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-const AllChefs = ({ from }) => {
+
+import { getAllChefs } from '../../actions/chefs';
+import { connect } from 'react-redux';
+
+const AllChefs = ({ from, getAllChefs, chefs: { loading, allChefs } }) => {
+
+    useEffect(() => {
+        getAllChefs()
+    }, [ getAllChefs, allChefs ])
+
     if (from === 'add-chef') {
         return (
-            <div>Here's the list of 
-                chefs in the database. 
-                You won't be able to add a 
-                chef that already exists.
+            <div className="ac-container">
+                {!loading && allChefs.map(chef => (
+                    <div className="chef-card" key={chef._id}>
+                        <img className="circle-image" src={chef.avatar} alt={chef.name} />
+                        <h5>{chef.name}</h5>
+                    </div>
+                )) }
             </div>
         )
+
     } else {
+
         return (
             <div>
                 Select the chef you'd like to update
@@ -18,4 +33,8 @@ const AllChefs = ({ from }) => {
     }
 }
 
-export default AllChefs;
+const msp = state => ({
+    chefs: state.chefs
+})
+
+export default connect(msp, { getAllChefs })(AllChefs);
