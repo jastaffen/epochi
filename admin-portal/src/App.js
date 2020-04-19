@@ -10,7 +10,7 @@ import store from './store';
 import Login from './components/auth/Login';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Dashboard from './components/Dashboard';
-import AddChef from './components/chefs/AddChef';
+import AddOrUpdateChef from './components/chefs/AddOrUpdateChef';
 import ChefSelectionMenu from './components/chefs/ChefSelectionMenu';
 
 const  App = () => {
@@ -20,7 +20,7 @@ const  App = () => {
         <Switch>
           <Route exact path='/' component={Login} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
-          <PrivateRoute exact path="/add-chef" component={AddChef} />
+          <PrivateRoute exact path="/add-chef" component={AddOrUpdateChef} />
           <PrivateRoute exact path="/chef-selection" component={ChefSelectionMenu} />
         </Switch>
       </Router>

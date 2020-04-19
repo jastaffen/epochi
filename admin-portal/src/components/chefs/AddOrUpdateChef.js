@@ -5,30 +5,26 @@ import AllChefs from './AllChefs';
 import GoBack from '../functional/GoBack';
 import ChefForm from '../forms/ChefForm';
 
-const AddChef = ({ history }) => {
+const AddOrUpdateChef = ({ history }) => {
 
     const [ showAddForm, setShowAddForm ] = useState(false);
 
     return(
         <div>
             <GoBack history={history} />
+            <h3>All Chefs (update a chef):</h3>
             <AllChefs from="add-chef" />
             
-            { 
-                !showAddForm ?
-                
+            {!showAddForm ?
                 <button className="button" 
                     onClick={() => setShowAddForm(true)}>
-                        Add A Chef
+                        Add A New Chef
                 </button> 
-                
                 :
-
-                <ChefForm />
+                <ChefForm from={'add'} />
             }
-
         </div>
     )
 }
 
-export default withRouter(AddChef);
+export default withRouter(AddOrUpdateChef);

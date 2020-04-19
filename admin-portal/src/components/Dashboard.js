@@ -26,15 +26,9 @@ const Dashboard = () => {
                     <div className="flex-button">
                         <Link to="/add-chef">
                             <button className="button">
-                                Add a chef
+                                Add or Update Chefs
                             </button>
                         </Link>
-                        <Link to="/chef-selection">
-                            <button className="button">
-                                Update a chef
-                            </button>
-                        </Link>
-                        
                     </div>
 
 
