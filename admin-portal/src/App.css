@@ -5,6 +5,10 @@ body {
     background: #3702E8
 }
 
+button {
+    cursor: pointer;
+}
+
 main, .navbar {
     display: flex;
     flex-direction: column;
@@ -93,3 +97,11 @@ hr {
 .circle-image:hover {
     transform: scale(1.1);
 }
+
+.drag-drop-zone {
+    padding: 2rem;
+    text-align: center;
+    background: #07F;
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 10px #C0C0C0;
+  }

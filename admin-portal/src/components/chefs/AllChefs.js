@@ -9,7 +9,7 @@ const AllChefs = ({ from, getAllChefs, chefs: { loading, allChefs } }) => {
 
     useEffect(() => {
         getAllChefs()
-    }, [ getAllChefs, allChefs ])
+    }, [ getAllChefs ])
 
     if (from === 'add-chef') {
         return (
