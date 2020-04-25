@@ -55,13 +55,33 @@ hr {
     background: rgb(102, 57, 252);
 }
 
-.form-field {
+input[type=text] {
     display: block;
     margin-top: 20px;
     padding: 10px;
     font-size: 18px;
     outline: none;
     transition: padding .5s ease-in-out;
+}
+
+input[type=file] {
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
+    transition: padding .5s ease-in-out;
+}
+
+textarea {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
+    transition: padding .5s ease-in-out;
+    width: 600px;
+	height: 120px;
+	border: 3px solid #cccccc;
 }
 
 .form-field:focus {
@@ -79,6 +99,12 @@ hr {
     display: flex;
 }
 
+.chef-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .chef-card {
     margin: 10px 20px;
 }
@@ -88,8 +114,8 @@ hr {
 }
 
 .circle-image {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -98,10 +124,40 @@ hr {
     transform: scale(1.1);
 }
 
-.drag-drop-zone {
-    padding: 2rem;
-    text-align: center;
-    background: #07F;
-    border-radius: 0.5rem;
-    box-shadow: 5px 5px 10px #C0C0C0;
-  }
+.chef-fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.initial-fields {
+    display: flex;
+    justify-content: 'space-between';
+}
+
+.image-file {
+    margin-right: 10px;
+    position: relative;
+}
+
+.image-file button {
+    position: absolute;
+    top: 0px;
+}
+
+
+.name-fields {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+#submit {
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
+}

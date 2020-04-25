@@ -10,7 +10,7 @@ const AddOrUpdateChef = ({ history }) => {
     const [ showAddForm, setShowAddForm ] = useState(false);
 
     return(
-        <div>
+        <div className="chef-container">
             <GoBack history={history} />
             <h3>All Chefs (update a chef):</h3>
             <AllChefs from="add-chef" />
