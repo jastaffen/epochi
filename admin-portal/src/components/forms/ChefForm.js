@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
+import { addChef } from '../../actions/chefs';
 
 import FormField from './FormField';
 
-const ChefForm = ( { from } ) => {
+const ChefForm = ( { from, addChef } ) => {
+    const initialState = {
+        firstName: '',
+        lastName: '',
+        avatar: '',
+        bio: ''
+    }
+
+    const [ previewAvatar, setPreviewAvatar ] = useState(false);
+
     const [ chef, setChef ] = useState({
         firstName: '',
         lastName: '',
@@ -17,6 +29,11 @@ const ChefForm = ( { from } ) => {
         });
     }
 
+    const clearAvatar = () => {
+        setChef({...chef, avatar: ''});
+        setPreviewAvatar(false);
+    }
+
     const { firstName, lastName, bio, avatar } = chef;
 
     const handleSubmit = e => {
@@ -25,11 +42,8 @@ const ChefForm = ( { from } ) => {
             alert(`You must enter a first name, last name,
              bio and avatar`);
         } 
-        const body = {
-            name: `${firstName} ${lastName}`,
-            bio,
-            avatar
-        }
+        addChef(chef);
+        setChef(initialState);
     }
 
     return (
@@ -37,10 +51,10 @@ const ChefForm = ( { from } ) => {
             <div className="initial-fields">
                 {avatar ? 
                 <div className="image-file">
-                    <button onClick={() => setChef({...chef, avatar: ''})}>
+                    <button onClick={clearAvatar}>
                         x
                     </button>
-                    <img src={URL.createObjectURL(avatar)} 
+                    <img src={avatar} 
                         alt={'avatar preview'} 
                         className="circle-image" 
                         width="500" height="500"
@@ -48,9 +62,13 @@ const ChefForm = ( { from } ) => {
                 </div> :
 
                 <FormField type="file" name="avatar" 
-                    handleChange={(e) => setChef({...chef, avatar: e.target.files[0]})} 
+                    handleChange={(e) => setChef({...chef, avatar: URL.createObjectURL(e.target.files[0])})} 
                     accept=".png, .jpg, .jpeg"
                 />
+                // <>
+                //     <FormField type="text" name="avatar" handleChange={handleChange} />
+                //     <button onClick={() => setPreviewAvatar(true)}>View Preview</button>
+                // </>
                 }
 
                 <div className="name-fields">
@@ -78,4 +96,4 @@ const ChefForm = ( { from } ) => {
     )
 }
 
-export default ChefForm;
+export default connect(null, { addChef })(ChefForm);

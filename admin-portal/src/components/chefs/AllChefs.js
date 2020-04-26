@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 
 import { getAllChefs } from '../../actions/chefs';
-import { connect } from 'react-redux';
+
 
 const AllChefs = ({ from, getAllChefs, chefs: { loading, allChefs } }) => {
 
