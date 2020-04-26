@@ -22,7 +22,7 @@ router.post('/', [
     })
 ],
     async (req, res) => {
-
+        
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -34,8 +34,8 @@ router.post('/', [
         try {
             // make sure chef does not already exit
             let chef = await Chef.findOne({ name });
-
-            if (chef) {
+            
+            if (chef && chef.name.toUpperCase() === name.toUpperCase()) {
                 return res.status(400).send({ errors: [{ msg: 'A Chef By that name already exists' }]});
             }
 

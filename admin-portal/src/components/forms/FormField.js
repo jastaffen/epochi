@@ -1,8 +1,19 @@
 import React from 'react';
 
-const FormField = ({ type, name, handleChange, value }) => (
-    <input className="form-field" type={type} name={name} placeholder={name}
-        value={value} onChange={handleChange} autoComplete="off"
+const formatPlaceholder = name => {
+    if (name === 'firstName') {
+        return 'first name';
+    } else if (name === 'lastName') {
+        return 'last name'
+    } else {
+        return name;
+    }
+}
+
+const FormField = ({ type, name, handleChange, value, ...rest }) => (
+    <input className="form-field" type={type} name={name} 
+        placeholder={formatPlaceholder(name)}
+        value={value} onChange={handleChange} autoComplete="off" 
     />
 )
 

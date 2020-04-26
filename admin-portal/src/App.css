@@ -1,26 +1,163 @@
 body {
     margin: 0px;
     padding: 0px;
-    color: #3702E8;
+    color: white;
+    background: #3702E8
 }
 
-main {
+button {
+    cursor: pointer;
+}
+
+main, .navbar {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.form-field {
+hr {
+    width: inherit;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.flex-button {
+    display: flex;
+}
+
+.button {
+    display: inline-block;
+    margin: 20px 5px;
+    padding: 10px;
+    width: 200px;
+    height: 75px;
+    background: #3702E8;
+    border: 2px solid rgb(13, 13, 50);
+    border-radius: 40%;
+    color: white;
+    font-size: 20px;
+    outline: none;
+    transition: border-radius .5s ease-in-out;
+}
+
+.button:hover {
+    background: rgb(60, 0, 255);
+    border-radius: 10%;
+}
+
+.button:active {
+    background: rgb(102, 57, 252);
+}
+
+input[type=text] {
     display: block;
     margin-top: 20px;
     padding: 10px;
     font-size: 18px;
     outline: none;
-    transition: padding .5s ease-in-out;
 }
 
-.form-field:focus {
-    padding: 12px;
-    border: 3px solid #3702E8;
+input[type=file] {
+    margin: 20px;
+    font-size: 18px;
+    outline: none;
+    width: 250px;
+    cursor: pointer;
+    border: 2px solid white;
+    padding: 10px;
+    border-radius: 15%;
+}
+
+
+textarea {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
+    transition: padding .5s ease-in-out;
+    width: 600px;
+	height: 120px;
+	border: 3px solid #cccccc;
+}
+
+
+#logout {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.ac-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px 20px;
+}
+
+.chef-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chef-card {
+    margin: 10px 20px;
+}
+
+.chef-card h5 {
+    text-align: center;
+}
+
+.circle-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.circle-image:hover {
+    transform: scale(1.1);
+}
+
+.chef-fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.initial-fields {
+    display: flex;
+    justify-content: 'space-between';
+}
+
+.image-file {
+    margin-right: 10px;
+    position: relative;
+}
+
+.image-file button {
+    position: absolute;
+    top: 0px;
+}
+
+
+.name-fields {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+#submit {
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
 }
