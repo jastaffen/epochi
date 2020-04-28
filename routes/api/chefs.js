@@ -18,7 +18,10 @@ router.post('/', [
     check('avatar', 'please add an image').not().isEmpty(),
     check('avatar', 'image must be of filetype .jpeg, .jpg, or .png').custom((value, { req }) => {
         let imageArr = value.split('.');
-        return imageArr.length < 1 || imageArr[imageArr.length - 1] !== 'jpeg' || imageArr[imageArr.length - 1] !== 'jpg' || imageArr[imageArr.length - 1] !== 'png'
+        return imageArr.length < 2 || 
+            imageArr[imageArr.length - 1] !== 'jpeg' || 
+                imageArr[imageArr.length - 1] !== 'jpg' || 
+                    imageArr[imageArr.length - 1] !== 'png'
     })
 ],
     async (req, res) => {
@@ -30,7 +33,8 @@ router.post('/', [
         }
 
         const { name, bio, avatar } = req.body;
-        
+
+
         try {
             // make sure chef does not already exit
             let chef = await Chef.findOne({ name });
@@ -38,7 +42,7 @@ router.post('/', [
             if (chef && chef.name.toUpperCase() === name.toUpperCase()) {
                 return res.status(400).send({ errors: [{ msg: 'A Chef By that name already exists' }]});
             }
-
+            
             chef = new Chef({
                 name,
                 bio,

@@ -16,7 +16,8 @@ const AllChefs = ({ from, getAllChefs, chefs: { loading, allChefs } }) => {
             <div className="ac-container">
                 {!loading && allChefs.map(chef => (
                     <div className="chef-card" key={chef._id}>
-                        <img className="circle-image" src={chef.avatar} alt={chef.name} />
+                        <img className="circle-image" src={typeof chef.avatar === 'string' ? 
+                        chef.avatar : URL.createObjectURL(chef.avatar.name)} alt={chef.name} />
                         <h5>{chef.name}</h5>
                     </div>
                 )) }

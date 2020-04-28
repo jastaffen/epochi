@@ -42,9 +42,12 @@ const ChefForm = ( { from, addChef } ) => {
             alert(`You must enter a first name, last name,
              bio and avatar`);
         } 
+
         addChef(chef);
         setChef(initialState);
     }
+
+    console.log(avatar);
 
     return (
         <div className="chef-fields">
@@ -62,7 +65,7 @@ const ChefForm = ( { from, addChef } ) => {
                 </div> :
 
                 <FormField type="file" name="avatar" 
-                    handleChange={(e) => setChef({...chef, avatar: URL.createObjectURL(e.target.files[0])})} 
+                    handleChange={(e) => setChef({...chef, avatar: URL.createObjectURL(e.target.files[0])})}
                     accept=".png, .jpg, .jpeg"
                 />
                 // <>
