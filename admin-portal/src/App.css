@@ -5,6 +5,11 @@ body {
     background: #3702E8
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
 button {
     cursor: pointer;
 }

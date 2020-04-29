@@ -12,6 +12,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import Dashboard from './components/Dashboard';
 import AddOrUpdateChef from './components/chefs/AddOrUpdateChef';
 import ChefSelectionMenu from './components/chefs/ChefSelectionMenu';
+import UpdateChef from './components/chefs/UpdateChef';
 
 const  App = () => {
   return (
@@ -21,6 +22,7 @@ const  App = () => {
           <Route exact path='/' component={Login} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/add-chef" component={AddOrUpdateChef} />
+          <PrivateRoute exact path="/edit-chef/:chef_id" component={UpdateChef} />
           <PrivateRoute exact path="/chef-selection" component={ChefSelectionMenu} />
         </Switch>
       </Router>

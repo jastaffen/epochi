@@ -1,4 +1,4 @@
-import { GET_ALL_CHEFS, CREATE_CHEF, PATCH_CHEF, 
+import { GET_ALL_CHEFS, CREATE_CHEF, PATCH_CHEF, SELECT_CHEF, 
     DELETE_CHEF, CHEF_ERROR } from '../actions/types';
 
 const initialState = {
@@ -24,6 +24,14 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 allChefs: [...state.allChefs, payload],
+                loading: false
+            }
+        
+        case SELECT_CHEF: 
+        const chef = state.allChefs.find(chef => chef._id === payload)
+            return {
+                ...state,
+                selectedChef: chef,
                 loading: false
             }
 

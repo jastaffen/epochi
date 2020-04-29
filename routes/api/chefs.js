@@ -4,6 +4,19 @@ const { check, validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+const upload = multer({ storage: storage })
+
 const Chef = require('../../models/Chef');
 const Ingredient = require('../../models/Ingredient');
 const Recipe = require('../../models/Recipe');
@@ -13,17 +26,9 @@ const fetchByGroupingAndModel = require('../../methods/fetchByGroupingAndModel')
 // @action          POST
 // desc             register a chef
 // access           private/though accessible without auth at the moment
-router.post('/', [
+router.post('/', upload.single('avatar'), [
     check('name', 'Name is required').not().isEmpty(),
-    check('avatar', 'please add an image').not().isEmpty(),
-    check('avatar', 'image must be of filetype .jpeg, .jpg, or .png').custom((value, { req }) => {
-        let imageArr = value.split('.');
-        return imageArr.length < 2 || 
-            imageArr[imageArr.length - 1] !== 'jpeg' || 
-                imageArr[imageArr.length - 1] !== 'jpg' || 
-                    imageArr[imageArr.length - 1] !== 'png'
-    })
-],
+    ],
     async (req, res) => {
         
         const errors = validationResult(req);
@@ -31,10 +36,8 @@ router.post('/', [
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-
-        const { name, bio, avatar } = req.body;
-
-
+        const { name, bio } = req.body;
+        const avatar = req.file.path;
         try {
             // make sure chef does not already exit
             let chef = await Chef.findOne({ name });

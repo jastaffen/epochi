@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { addChef } from '../../actions/chefs';
 
 import FormField from './FormField';
 
-const ChefForm = ( { from, addChef } ) => {
+const ChefForm = ( { from, selectedChef, addChef } ) => {
     const initialState = {
         firstName: '',
         lastName: '',
@@ -21,6 +21,19 @@ const ChefForm = ( { from, addChef } ) => {
         avatar: '',
         bio: ''
     });
+
+    useEffect(() => {
+        const { name, avatar, bio } = selectedChef;
+        const nameArr = name.split(' ');
+        if (from === 'update') {
+            setChef({
+                firstName: nameArr[0],
+                lastName: nameArr[1],
+                avatar,
+                bio
+            });
+        }
+    }, [ selectedChef ])
 
     const handleChange = e => {
         setChef({
@@ -57,7 +70,7 @@ const ChefForm = ( { from, addChef } ) => {
                     <button onClick={clearAvatar}>
                         x
                     </button>
-                    <img src={avatar} 
+                    <img src={URL.createObjectURL(avatar)} 
                         alt={'avatar preview'} 
                         className="circle-image" 
                         width="500" height="500"
@@ -65,7 +78,7 @@ const ChefForm = ( { from, addChef } ) => {
                 </div> :
 
                 <FormField type="file" name="avatar" 
-                    handleChange={(e) => setChef({...chef, avatar: URL.createObjectURL(e.target.files[0])})}
+                    handleChange={(e) => setChef({...chef, avatar: e.target.files[0]})}
                     accept=".png, .jpg, .jpeg"
                 />
                 // <>
