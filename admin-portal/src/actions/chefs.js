@@ -1,4 +1,5 @@
-import { GET_ALL_CHEFS, CHEF_ERROR, CREATE_CHEF, SELECT_CHEF } from './types';
+import { GET_ALL_CHEFS, CHEF_ERROR, CREATE_CHEF, SELECT_CHEF, 
+    SET_LOADING, PATCH_CHEF, DESELECT_CHEF } from './types';
 
 import axios from 'axios';
 
@@ -24,18 +25,19 @@ export const getAllChefs = () => async dispatch => {
 export const addChef = chef => async dispatch => {
     const fd = new FormData();
     const body = formatChefBody(chef);
-    fd.append('body', body);
+    const { name, bio, avatar } = body;
+    fd.append('name', name);
+    fd.append('bio', bio);
+    fd.append('avatar', avatar);
     const config = {
         headers: {
             "Content-Type": "multipart/form-data",
-            "Accept": "application/json",
-            "type": "formData"
+            "Accept": "*/*"
           }
     }
     try {
         const res = await axios
             .post('http://localhost:5400/api/chefs', fd, config);
-            
         dispatch({
             type: CREATE_CHEF,
             payload: res.data
@@ -48,9 +50,55 @@ export const addChef = chef => async dispatch => {
     }
 }
 
-export const selectChef = id => dispatch => {
+export const updateChef = (chef, id) => async dispatch => {
+    const fd = new FormData();
+    const body = formatChefBody(chef);
+    const { name, bio, avatar } = body;
+    fd.append('name', name);
+    fd.append('bio', bio);
+    fd.append('avatar', avatar);
+    const config = {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Accept": "*/*"
+          }
+    }
+    try {
+        const res = await axios
+            .patch(`http://localhost:5400/api/chefs/${id}`, fd, config);
+        dispatch({
+            type: PATCH_CHEF,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: CHEF_ERROR,
+            payload: err
+        });
+    }
+}
+
+export const selectChef = id => async dispatch => {
     dispatch({
-        type: SELECT_CHEF,
-        payload: id
+        type: SET_LOADING
+    })
+    try {
+        const res = await axios.get(`http://localhost:5400/api/chefs/${id}`);
+
+        dispatch({
+            type: SELECT_CHEF,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: CHEF_ERROR,
+            payload: err
+        })
+    }    
+}
+
+export const deselectChef = () => dispatch => {
+    dispatch({
+        type: DESELECT_CHEF
     });
 }

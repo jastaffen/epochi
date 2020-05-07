@@ -8,7 +8,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, 'uploads')
+        cb(null, 'uploads/chefs')
     },
     filename: function(req, file, cb) {
         cb(null, file.originalname)
@@ -30,7 +30,6 @@ router.post('/', upload.single('avatar'), [
     check('name', 'Name is required').not().isEmpty(),
     ],
     async (req, res) => {
-        
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -38,6 +37,7 @@ router.post('/', upload.single('avatar'), [
         }
         const { name, bio } = req.body;
         const avatar = req.file.path;
+        
         try {
             // make sure chef does not already exit
             let chef = await Chef.findOne({ name });
@@ -147,13 +147,11 @@ router.get('/:chef_id', async (req, res) => {
 // @action         PATCH/EDIT
 // desc            Edit a Chef
 // access          Public
-router.patch('/:chef_id', async (req,res) => {
-    const { name, bio, avatar } = req.body;
-
-    // Ensuring that the updated name is not already taken
-    let chef = await Chef.findOne({ name });
-    if (chef && name) {
-        return res.send(400).json({errors: [{msg: 'A Chef By That Name Already Exists'}]})
+router.patch('/:chef_id', upload.single('avatar'), async (req,res) => {
+    const { name, bio } = req.body;
+    let avatar;
+    if (req.file) {
+        avatar = req.file.path;
     }
 
     let chefFields = {};
@@ -163,7 +161,6 @@ router.patch('/:chef_id', async (req,res) => {
 
     try {
         let chefForUpdate = await Chef.findById(req.params.chef_id);
-        // console.log(chefForUpdate);
         if (!chefForUpdate) {
             return res.status(400).json({ msg: 'Chef Not Found' });
         }
@@ -172,8 +169,7 @@ router.patch('/:chef_id', async (req,res) => {
                     { _id: req.params.chef_id }, 
                     { $set: chefFields }, 
                     { new: true }
-                );
-        console.log(chef);
+                ).catch(err => res.status(400).json({ msg: err }));
         return res.json(chef);
 
     } catch (err) {
@@ -185,6 +181,19 @@ router.patch('/:chef_id', async (req,res) => {
     }
 });
 
+// @action         DELETE
+// desc            DELETE a Chef
+// access          Public
+router.delete('/:chef_id', async (req, res) => {
+    try {
+        await Chef.findOneAndRemove({ _id: req.params.chef_id });
+
+        res.json({ msg: 'Chef Deleted' });
+
+    } catch (err) {
+        res.status(500).send('Server Error');
+    }
+});
 
 
 module.exports = router;

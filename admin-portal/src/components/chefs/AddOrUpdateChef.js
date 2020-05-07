@@ -13,7 +13,7 @@ const AddOrUpdateChef = ({ history }) => {
         <div className="chef-container">
             <GoBack history={history} />
             <h3>All Chefs (update a chef):</h3>
-            <AllChefs from="add-chef" />
+            <AllChefs />
             
             {!showAddForm ?
                 <button className="button" 

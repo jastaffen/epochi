@@ -1,5 +1,5 @@
 import { GET_ALL_CHEFS, CREATE_CHEF, PATCH_CHEF, SELECT_CHEF, 
-    DELETE_CHEF, CHEF_ERROR } from '../actions/types';
+    DELETE_CHEF, CHEF_ERROR, SET_LOADING, DESELECT_CHEF } from '../actions/types';
 
 const initialState = {
     allChefs: [],
@@ -28,13 +28,18 @@ export default function(state = initialState, action) {
             }
         
         case SELECT_CHEF: 
-        const chef = state.allChefs.find(chef => chef._id === payload)
             return {
                 ...state,
-                selectedChef: chef,
+                selectedChef: payload,
                 loading: false
             }
 
+        case DESELECT_CHEF: 
+            return {
+                ...state,
+                selectedChef: null
+            }
+            
         case PATCH_CHEF:
             const chefsWithUpdated = [...state.allChefs].map(chef => {
                 return chef._id === payload._id ? payload : chef;
@@ -54,6 +59,12 @@ export default function(state = initialState, action) {
                 ...state,
                 allChefs: chefsWithoutPayload,
                 loading: false
+            }
+        
+        case SET_LOADING:
+            return {
+                ...state,
+                loading: true
             }
         
         case CHEF_ERROR:

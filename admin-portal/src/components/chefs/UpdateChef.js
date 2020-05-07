@@ -3,10 +3,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ChefForm from '../forms/ChefForm';
+import AllChefs from './AllChefs';
 
 const UpdateChef = ({ chefs: { loading, selectedChef }}) => {
     return(
-        <ChefForm from={'update'} selectedChef={ selectedChef } />
+        !loading && (
+        <>  
+            <AllChefs />
+            <ChefForm from={'update'} selectedChef={ selectedChef } />
+        </>
+        )   
     )
 }
 

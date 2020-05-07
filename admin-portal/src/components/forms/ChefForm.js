@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import { addChef } from '../../actions/chefs';
+import { addChef, updateChef, deselectChef } from '../../actions/chefs';
+import { CHEF_URL, configureImageURL } from '../../utils/imageDirectories';
 
 import FormField from './FormField';
 
-const ChefForm = ( { from, selectedChef, addChef } ) => {
+
+const ChefForm = ( { history, from, selectedChef, addChef, updateChef, deselectChef } ) => {
+    
+    const form = useRef();
+
     const initialState = {
         firstName: '',
         lastName: '',
@@ -23,9 +29,15 @@ const ChefForm = ( { from, selectedChef, addChef } ) => {
     });
 
     useEffect(() => {
-        const { name, avatar, bio } = selectedChef;
-        const nameArr = name.split(' ');
-        if (from === 'update') {
+        form.current.scrollIntoView();
+    }, [ ])
+
+
+    useEffect(() => {
+        if (selectedChef) {
+            const { name, avatar, bio } = selectedChef;
+            const nameArr = name.split(' ');
+            if (from === 'update') {
             setChef({
                 firstName: nameArr[0],
                 lastName: nameArr[1],
@@ -33,6 +45,8 @@ const ChefForm = ( { from, selectedChef, addChef } ) => {
                 bio
             });
         }
+        }
+        
     }, [ selectedChef ])
 
     const handleChange = e => {
@@ -47,7 +61,20 @@ const ChefForm = ( { from, selectedChef, addChef } ) => {
         setPreviewAvatar(false);
     }
 
+    const handleImageDisplay = () => {
+        if (from === 'update' && !previewAvatar) {
+            return CHEF_URL + configureImageURL(avatar);
+        } else if (from === 'update' && previewAvatar || from === 'add' && previewAvatar) {
+            return URL.createObjectURL(avatar);
+        } 
+    }
+
     const { firstName, lastName, bio, avatar } = chef;
+
+    const handleImageChange = e => {
+        setChef({...chef, avatar: e.target.files[0]});
+        setPreviewAvatar(true);
+    }
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -56,21 +83,26 @@ const ChefForm = ( { from, selectedChef, addChef } ) => {
              bio and avatar`);
         } 
 
-        addChef(chef);
-        setChef(initialState);
+        if (from === 'add') {
+            addChef(chef);
+        } else {
+            updateChef( chef, selectedChef._id );
+        }        
+        setChef( initialState );
+        deselectChef();
+        history.push('/add-chef');
     }
 
-    console.log(avatar);
-
+    
     return (
-        <div className="chef-fields">
+        <div className="chef-fields" ref={ form } >
             <div className="initial-fields">
-                {avatar ? 
+                { avatar ? 
                 <div className="image-file">
                     <button onClick={clearAvatar}>
                         x
                     </button>
-                    <img src={URL.createObjectURL(avatar)} 
+                    <img src={handleImageDisplay()} 
                         alt={'avatar preview'} 
                         className="circle-image" 
                         width="500" height="500"
@@ -78,13 +110,10 @@ const ChefForm = ( { from, selectedChef, addChef } ) => {
                 </div> :
 
                 <FormField type="file" name="avatar" 
-                    handleChange={(e) => setChef({...chef, avatar: e.target.files[0]})}
+                    handleChange={(e) => handleImageChange(e)}
                     accept=".png, .jpg, .jpeg"
                 />
-                // <>
-                //     <FormField type="text" name="avatar" handleChange={handleChange} />
-                //     <button onClick={() => setPreviewAvatar(true)}>View Preview</button>
-                // </>
+                
                 }
 
                 <div className="name-fields">
@@ -106,10 +135,10 @@ const ChefForm = ( { from, selectedChef, addChef } ) => {
             </textarea>
             
             <button id='submit' onClick={handleSubmit}>
-                Add New Chef
+                {from === 'update' ? 'Update Chef' : 'Add New Chef'}
             </button>
         </div>
     )
 }
 
-export default connect(null, { addChef })(ChefForm);
+export default connect(null, { addChef, updateChef, deselectChef })(withRouter(ChefForm));
