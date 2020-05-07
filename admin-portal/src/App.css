@@ -159,10 +159,24 @@ textarea {
     margin-left: 15px;
 }
 
-#submit {
+.submit {
     display: block;
     margin-top: 20px;
     padding: 10px;
     font-size: 18px;
     outline: none;
+}
+
+.edit-btn-container {
+    display: inline-flex;
+    width: 50%;
+    justify-content: center;
+}
+
+.edit-btn-container button {
+    margin: 20px 75px;
+}
+
+.delete {
+    background: rgb(187, 3, 3);
 }

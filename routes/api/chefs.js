@@ -186,9 +186,9 @@ router.patch('/:chef_id', upload.single('avatar'), async (req,res) => {
 // access          Public
 router.delete('/:chef_id', async (req, res) => {
     try {
-        await Chef.findOneAndRemove({ _id: req.params.chef_id });
+        const deletedChef = await Chef.findOneAndRemove({ _id: req.params.chef_id });
 
-        res.json({ msg: 'Chef Deleted' });
+        res.json(deletedChef);
 
     } catch (err) {
         res.status(500).send('Server Error');

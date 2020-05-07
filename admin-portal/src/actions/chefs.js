@@ -1,5 +1,5 @@
 import { GET_ALL_CHEFS, CHEF_ERROR, CREATE_CHEF, SELECT_CHEF, 
-    SET_LOADING, PATCH_CHEF, DESELECT_CHEF } from './types';
+    SET_LOADING, PATCH_CHEF, DESELECT_CHEF, DELETE_CHEF } from './types';
 
 import axios from 'axios';
 
@@ -101,4 +101,22 @@ export const deselectChef = () => dispatch => {
     dispatch({
         type: DESELECT_CHEF
     });
+}
+
+export const deleteChef = id => async dispatch => {
+    if (window.confirm('Are you sure you want to delete? Deletion is permanent.')) {
+        try {
+            const deletedChef = await axios.delete(`http://localhost:5400/api/chefs/${id}`);
+            dispatch({
+                type: DELETE_CHEF,
+                payload: deletedChef
+            });
+        } catch (err) {
+            dispatch({
+                type: CHEF_ERROR,
+                payload: err.message
+            });
+        }
+    }
+    
 }

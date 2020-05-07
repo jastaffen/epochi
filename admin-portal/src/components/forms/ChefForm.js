@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { addChef, updateChef, deselectChef } from '../../actions/chefs';
+import { addChef, updateChef, deselectChef, deleteChef } from '../../actions/chefs';
 import { CHEF_URL, configureImageURL } from '../../utils/imageDirectories';
 
 import FormField from './FormField';
 
 
-const ChefForm = ( { history, from, selectedChef, addChef, updateChef, deselectChef } ) => {
+const ChefForm = ( { history, from, selectedChef, addChef, updateChef, 
+        deselectChef, deleteChef } ) => {
     
     const form = useRef();
 
@@ -93,6 +94,12 @@ const ChefForm = ( { history, from, selectedChef, addChef, updateChef, deselectC
         history.push('/add-chef');
     }
 
+    const handleDelete = () => {
+        deselectChef();
+        deleteChef(selectedChef._id);
+        history.push('/add-chef');
+    }
+
     
     return (
         <div className="chef-fields" ref={ form } >
@@ -134,11 +141,22 @@ const ChefForm = ( { history, from, selectedChef, addChef, updateChef, deselectC
             placeholder="bio">
             </textarea>
             
-            <button id='submit' onClick={handleSubmit}>
-                {from === 'update' ? 'Update Chef' : 'Add New Chef'}
-            </button>
+            <div class="edit-btn-container">
+                <button className='submit' onClick={handleSubmit}>
+                    {from === 'update' ? 'Update Chef' : 'Add New Chef'}
+                </button>
+
+                { from === 'update' && (
+
+                <button className='submit delete' onClick={handleDelete} >
+                    Delete Chef
+                </button>
+            
+                )}
+            </div>
         </div>
     )
 }
 
-export default connect(null, { addChef, updateChef, deselectChef })(withRouter(ChefForm));
+export default connect(null, { addChef, updateChef, 
+    deselectChef, deleteChef })(withRouter(ChefForm));
