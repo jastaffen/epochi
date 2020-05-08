@@ -6,7 +6,9 @@ const SeasonForm = ({ MONTHS, handleMonthSelect, season }) => {
     
     return (
         <div className="season-container">
-            <span>Check all that apply:</span>
+            <span>During which month(s) can you find this ingredient
+                in New York State:
+            </span>
             <div className="months-container">
             { MONTHS.map(month => (
                 <div className={ season.includes(month) ? 'month selected' : 'month' } 

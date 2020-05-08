@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 
 import ImageForm from './ImageForm';
 import SeasonForm from './SeasonForm';
 import TypeForm from './TypeForm';
 import FormField from '../FormField';
+import { createIngredient } from '../../../actions/ingredients';
 
 const IngredientForm = ({ from }) => {
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 
@@ -60,12 +62,23 @@ const IngredientForm = ({ from }) => {
         })
     }
 
-    const handleSubmit = () => {
-        console.log(ingredient);
-    }
+    
 
     const { name, image, _id, season, type } = ingredient;
     
+    const handleSubmit = () => {
+        if ( !name || !image || !season || !type ) {
+            return alert('all fields must be completed');
+        }
+
+        if ( from === 'add' ) {
+            createIngredient(ingredient)
+        } else {
+            console.log(ingredient);
+        }
+    }
+    
+
     return (
         <div className="chef-fields">
             <ImageForm from={from} previewImage={previewImage} image={image}
