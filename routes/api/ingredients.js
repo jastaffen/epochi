@@ -1,7 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+const multer = require('multer');
 
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/ingredients')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+const upload = multer({ storage: storage });
 
 const Ingredient = require('../../models/Ingredient');
 const Recipe = require('../../models/Recipe');
@@ -13,19 +24,20 @@ const fetchByGroupingAndModel = require('../../methods/fetchByGroupingAndModel')
 // @action          POST
 // desc             register an ingredient
 // access           private/though accessible without auth at the moment
-router.post('/', [
+router.post('/', upload.single('image'), [
     check('name', 'Enter a valid name').not().isEmpty(),
     check('season', 'Season is required').not().isEmpty(),
-    check('image', 'Image is Required').not().isEmpty(),
     check('type', 'Type is Required').not().isEmpty()
 ], 
     async (req, res) => {
+        
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() })
         }
 
-        const { name, season, type, image, recipes } = req.body;
+        const { name, season, type } = req.body;
+        const image = req.file.path;
 
         try {
             // make sure chef does not already exit
@@ -39,8 +51,7 @@ router.post('/', [
                 name,
                 season,
                 type,
-                image, 
-                recipes
+                image
             });
 
             await ingredient.save();

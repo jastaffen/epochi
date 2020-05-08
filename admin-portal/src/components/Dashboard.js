@@ -35,8 +35,11 @@ const Dashboard = () => {
                     <hr />
 
                     <div className="flex-button">
-                        <button className="button">Add an ingredient</button>
-                        <button className="button">Update an ingredient</button>
+                        <Link to="/add-ingredient" >
+                            <button className="button">
+                                Add or Update Ingredients
+                            </button>
+                        </Link>
                     </div>
 
                     <hr />

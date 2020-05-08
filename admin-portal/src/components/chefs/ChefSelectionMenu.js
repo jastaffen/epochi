@@ -5,6 +5,7 @@ import AllChefs from './AllChefs';
 import GoBack from '../functional/GoBack';
 
 const ChefSelectionMenu = ({ history }) => {
+    
     return (
         <div>
             <GoBack history={history} />

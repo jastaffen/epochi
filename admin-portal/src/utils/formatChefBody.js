@@ -3,6 +3,6 @@ export const formatChefBody = chef => {
     return {
         name: `${firstName.trim()} ${lastName.trim()}`,
         bio,
-        avatar
+        avatar: avatar
     }
 }

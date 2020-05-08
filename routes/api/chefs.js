@@ -4,6 +4,19 @@ const { check, validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/chefs')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+const upload = multer({ storage: storage });
+
 const Chef = require('../../models/Chef');
 const Ingredient = require('../../models/Ingredient');
 const Recipe = require('../../models/Recipe');
@@ -13,23 +26,17 @@ const fetchByGroupingAndModel = require('../../methods/fetchByGroupingAndModel')
 // @action          POST
 // desc             register a chef
 // access           private/though accessible without auth at the moment
-router.post('/', [
+router.post('/', upload.single('avatar'), [
     check('name', 'Name is required').not().isEmpty(),
-    check('avatar', 'please add an image').not().isEmpty(),
-    check('avatar', 'image must be of filetype .jpeg, .jpg, or .png').custom((value, { req }) => {
-        let imageArr = value.split('.');
-        return imageArr.length < 1 || imageArr[imageArr.length - 1] !== 'jpeg' || imageArr[imageArr.length - 1] !== 'jpg' || imageArr[imageArr.length - 1] !== 'png'
-    })
-],
+    ],
     async (req, res) => {
-        
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-
-        const { name, bio, avatar } = req.body;
+        const { name, bio } = req.body;
+        const avatar = req.file.path;
         
         try {
             // make sure chef does not already exit
@@ -38,7 +45,7 @@ router.post('/', [
             if (chef && chef.name.toUpperCase() === name.toUpperCase()) {
                 return res.status(400).send({ errors: [{ msg: 'A Chef By that name already exists' }]});
             }
-
+            
             chef = new Chef({
                 name,
                 bio,
@@ -140,13 +147,11 @@ router.get('/:chef_id', async (req, res) => {
 // @action         PATCH/EDIT
 // desc            Edit a Chef
 // access          Public
-router.patch('/:chef_id', async (req,res) => {
-    const { name, bio, avatar } = req.body;
-
-    // Ensuring that the updated name is not already taken
-    let chef = await Chef.findOne({ name });
-    if (chef && name) {
-        return res.send(400).json({errors: [{msg: 'A Chef By That Name Already Exists'}]})
+router.patch('/:chef_id', upload.single('avatar'), async (req,res) => {
+    const { name, bio } = req.body;
+    let avatar;
+    if (req.file) {
+        avatar = req.file.path;
     }
 
     let chefFields = {};
@@ -156,7 +161,6 @@ router.patch('/:chef_id', async (req,res) => {
 
     try {
         let chefForUpdate = await Chef.findById(req.params.chef_id);
-        // console.log(chefForUpdate);
         if (!chefForUpdate) {
             return res.status(400).json({ msg: 'Chef Not Found' });
         }
@@ -165,8 +169,7 @@ router.patch('/:chef_id', async (req,res) => {
                     { _id: req.params.chef_id }, 
                     { $set: chefFields }, 
                     { new: true }
-                );
-        console.log(chef);
+                ).catch(err => res.status(400).json({ msg: err }));
         return res.json(chef);
 
     } catch (err) {
@@ -178,6 +181,19 @@ router.patch('/:chef_id', async (req,res) => {
     }
 });
 
+// @action         DELETE
+// desc            DELETE a Chef
+// access          Public
+router.delete('/:chef_id', async (req, res) => {
+    try {
+        const deletedChef = await Chef.findOneAndRemove({ _id: req.params.chef_id });
+
+        res.json(deletedChef);
+
+    } catch (err) {
+        res.status(500).send('Server Error');
+    }
+});
 
 
 module.exports = router;

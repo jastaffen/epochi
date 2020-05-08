@@ -8,12 +8,11 @@ import ChefForm from '../forms/ChefForm';
 const AddOrUpdateChef = ({ history }) => {
 
     const [ showAddForm, setShowAddForm ] = useState(false);
-
     return(
-        <div className="chef-container">
+        <div className="item-container">
             <GoBack history={history} />
             <h3>All Chefs (update a chef):</h3>
-            <AllChefs from="add-chef" />
+            <AllChefs />
             
             {!showAddForm ?
                 <button className="button" 

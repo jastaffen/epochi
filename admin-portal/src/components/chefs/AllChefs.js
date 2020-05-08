@@ -2,39 +2,33 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getAllChefs } from '../../actions/chefs';
+import { getAllChefs, selectChef } from '../../actions/chefs';
 
+import { CHEF_URL, configureImageURL } from '../../utils/imageDirectories';
 
-const AllChefs = ({ from, getAllChefs, chefs: { loading, allChefs } }) => {
+const AllChefs = ({ getAllChefs, chefs: { loading, allChefs }, selectChef }) => {
 
     useEffect(() => {
         getAllChefs()
-    }, [ getAllChefs ])
+    }, [ getAllChefs ]);
 
-    if (from === 'add-chef') {
-        return (
-            <div className="ac-container">
-                {!loading && allChefs.map(chef => (
-                    <div className="chef-card" key={chef._id}>
-                        <img className="circle-image" src={chef.avatar} alt={chef.name} />
+    return (
+        <div className="ac-container">
+            {!loading && allChefs.map(chef => (
+                <Link to={`/edit-chef/${chef._id}`} onClick={ () => selectChef(chef._id) } key={chef._id} >
+                    <div className="chef-card">
+                        <img className="circle-image" src={CHEF_URL + configureImageURL(chef.avatar)} alt={chef.name} />
                         <h5>{chef.name}</h5>
                     </div>
+                </Link>
                 )) }
             </div>
         )
 
-    } else {
-
-        return (
-            <div>
-                Select the chef you'd like to update
-            </div>
-        )
-    }
 }
 
 const msp = state => ({
     chefs: state.chefs
 })
 
-export default connect(msp, { getAllChefs })(AllChefs);
+export default connect(msp, { getAllChefs, selectChef })(AllChefs);
