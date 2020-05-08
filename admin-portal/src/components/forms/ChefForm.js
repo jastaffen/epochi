@@ -22,12 +22,7 @@ const ChefForm = ( { history, from, selectedChef, addChef, updateChef,
 
     const [ previewAvatar, setPreviewAvatar ] = useState(false);
 
-    const [ chef, setChef ] = useState({
-        firstName: '',
-        lastName: '',
-        avatar: '',
-        bio: ''
-    });
+    const [ chef, setChef ] = useState(initialState);
 
     useEffect(() => {
         form.current.scrollIntoView();
@@ -141,7 +136,7 @@ const ChefForm = ( { history, from, selectedChef, addChef, updateChef,
             placeholder="bio">
             </textarea>
             
-            <div class="edit-btn-container">
+            <div className="form-btn-container">
                 <button className='submit' onClick={handleSubmit}>
                     {from === 'update' ? 'Update Chef' : 'Add New Chef'}
                 </button>

@@ -13,6 +13,7 @@ import Dashboard from './components/Dashboard';
 import AddOrUpdateChef from './components/chefs/AddOrUpdateChef';
 import ChefSelectionMenu from './components/chefs/ChefSelectionMenu';
 import UpdateChef from './components/chefs/UpdateChef';
+import AddOrUpdateIngredient from './components/ingredients/AddOrUpdateIngredient';
 
 const  App = () => {
   return (
@@ -21,9 +22,14 @@ const  App = () => {
         <Switch>
           <Route exact path='/' component={Login} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
+          {/* chef routes */}
           <PrivateRoute exact path="/add-chef" component={AddOrUpdateChef} />
           <PrivateRoute exact path="/edit-chef/:chef_id" component={UpdateChef} />
           <PrivateRoute exact path="/chef-selection" component={ChefSelectionMenu} />
+
+          {/* ingredient routes */}
+          <PrivateRoute exact path="/add-ingredient" component={AddOrUpdateIngredient} />
         </Switch>
       </Router>
     </Provider>

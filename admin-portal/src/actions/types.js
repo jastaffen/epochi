@@ -7,3 +7,8 @@ export const PATCH_CHEF = "PATCH_CHEF";
 export const DELETE_CHEF = "DELETE_CHEF";
 export const CHEF_ERROR = "CHEF_ERROR";
 export const SET_LOADING = "SET_LOADING";
+
+// Ingredients
+export const GET_ALL_INGREDIENTS = "GET_ALL_INGREDIENTS";
+export const INGREDIENTS_LOADING = "INGREDIENTS_LOADING";
+export const INGREDIENT_ERROR = "INGREDIENT_ERROR";

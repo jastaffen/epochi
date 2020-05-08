@@ -2,7 +2,7 @@ body {
     margin: 0px;
     padding: 0px;
     color: white;
-    background: #3702E8
+    background: #3702E8;
 }
 
 a {
@@ -104,7 +104,7 @@ textarea {
     margin: 0px 20px;
 }
 
-.chef-container {
+.item-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -167,16 +167,94 @@ textarea {
     outline: none;
 }
 
-.edit-btn-container {
+.form-btn-container {
     display: inline-flex;
     width: 50%;
     justify-content: center;
 }
 
-.edit-btn-container button {
+.form-btn-container button {
     margin: 20px 75px;
 }
 
 .delete {
     background: rgb(187, 3, 3);
+}
+
+.season-container {
+    width: 300px;
+    background-color: white;
+    border: 2px solid gray;
+}
+
+.season-container span {
+    color: black;
+}
+
+.months-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 200px;
+    margin: 10px;
+    border: 2px solid gray;
+}
+
+.month {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 136px;
+    border: 1px solid gray;
+    cursor: pointer;
+    user-select: none;
+}
+
+.selected {
+    background-color: #3702E8;
+}
+.selected span {
+    color: white;
+}
+
+.ing-info-fields {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name-and-type {
+    margin-right: 50px;
+}
+ 
+.type-radio-container {
+    border: 2px solid gray;
+    background-color: white;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.type-radio-container span {
+    color: black;
+}
+
+.type-radio-container .group {
+    border: 1px solid gray;
+    width: 100px;
+    height: 50px;
+    display: block;
+    position: relative;
+}
+
+.group label { 
+    color: black;
+}
+
+.group label input[type="radio"] {
+    display: block;
+    cursor: pointer;
 }
