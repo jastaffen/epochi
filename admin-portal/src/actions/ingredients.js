@@ -17,6 +17,7 @@ export const getAllIngredients = () => async dispatch => {
 }
 
 export const createIngredient = ingredient => async dispatch => {
+    debugger;
     const fd = new FormData();
     const { name, type, season, image } = ingredient;
     fd.append('type', type);
@@ -29,9 +30,11 @@ export const createIngredient = ingredient => async dispatch => {
             "Accept": "*/*"
           }
     }
+    debugger;
     try {
-        const res = await axios.post('http://localhost:5400/api/ingredients', fd, config);
-
+        const res = await axios
+            .post('http://localhost:5400/api/ingredients', fd, config);
+        debugger;
         dispatch({
             type: CREATE_INGREDIENT,
             payload: res.data
@@ -39,7 +42,7 @@ export const createIngredient = ingredient => async dispatch => {
     } catch (err) {
         dispatch({
             type: INGREDIENT_ERROR,
-            payload: err.message
+            payload: err
         });
     }
 }

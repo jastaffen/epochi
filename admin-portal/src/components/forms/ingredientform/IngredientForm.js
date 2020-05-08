@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 
 
 import ImageForm from './ImageForm';
 import SeasonForm from './SeasonForm';
 import TypeForm from './TypeForm';
 import FormField from '../FormField';
+
 import { createIngredient } from '../../../actions/ingredients';
 
-const IngredientForm = ({ from }) => {
+const IngredientForm = ({ history, from, createIngredient }) => {
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 
     'September', 'October', 'November', 'December'];
 
@@ -72,10 +75,13 @@ const IngredientForm = ({ from }) => {
         }
 
         if ( from === 'add' ) {
-            createIngredient(ingredient)
+            createIngredient(ingredient);
         } else {
-            console.log(ingredient);
+            console.log('update');
         }
+
+        setIngredient(initialState);
+        history.push('/add-ingredient')
     }
     
 
@@ -116,4 +122,4 @@ const IngredientForm = ({ from }) => {
     )
 }
 
-export default IngredientForm;
+export default connect(null, { createIngredient })( withRouter(IngredientForm) );

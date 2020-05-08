@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage });
 
 const Chef = require('../../models/Chef');
 const Ingredient = require('../../models/Ingredient');

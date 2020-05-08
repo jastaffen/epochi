@@ -110,6 +110,14 @@ textarea {
     align-items: center;
 }
 
+.item-card {
+    margin: 10px 20px;
+}
+
+.item-card h5 {
+    text-align: center;
+}
+
 .chef-card {
     margin: 10px 20px;
 }

@@ -1,4 +1,4 @@
-import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR } from '../actions/types';
+import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT } from '../actions/types';
 
 const initialState = {
     allIngredients: [],
@@ -23,6 +23,11 @@ export default function( state = initialState, action ) {
                 loading: true
             }
 
+        case CREATE_INGREDIENT: 
+            return {
+                ...state,
+                allIngredients: [...state.allIngredients, payload]
+            }
         case INGREDIENT_ERROR: 
             return {
                 ...state,
