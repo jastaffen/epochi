@@ -10,7 +10,7 @@ const UpdateChef = ({ chefs: { loading, selectedChef }, history }) => {
     return(
         !loading && (
         <>  
-            <GoBack history={history} />
+            <GoBack history={history} itemType="chef" />
             <AllChefs />
             <ChefForm from={'update'} selectedChef={ selectedChef } />
         </>

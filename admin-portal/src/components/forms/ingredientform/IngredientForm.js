@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -9,14 +9,16 @@ import SeasonForm from './SeasonForm';
 import TypeForm from './TypeForm';
 import FormField from '../FormField';
 
-import { createIngredient } from '../../../actions/ingredients';
+import { createIngredient, updateIngredient } from '../../../actions/ingredients';
 
-const IngredientForm = ({ history, from, createIngredient }) => {
+const IngredientForm = ({ history, from, createIngredient, selectedIngredient, updateIngredient }) => {
+    const form = useRef();
+    
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 
     'September', 'October', 'November', 'December'];
 
-    const FOOD_GROUPS = [ 'meat', 'seafood', 'veggie', 'fruit', 
-        'nut', 'seed', 'grain', 'dairy' ];
+    const FOOD_GROUPS = [ 'meat', 'seafood', 'vegetable', 'fruit', 
+        'nut', 'seed', 'grain', 'dairy', 'green' ];
 
     const initialState = {
         season: [],
@@ -29,6 +31,21 @@ const IngredientForm = ({ history, from, createIngredient }) => {
     const [ previewImage, setPreviewImage ] = useState(false);
     const [ ingredient, setIngredient ] = useState(initialState);
 
+    useEffect(() => {
+        form.current.scrollIntoView();
+    }, []);
+
+    useEffect(() => {
+        if (selectedIngredient) {
+            const { season, name, type, image } = selectedIngredient;
+            setIngredient({
+                season,
+                name, 
+                type,
+                image
+            });
+        }
+    }, [ selectedIngredient ])
 
     const handleImageChange = e => {
         setIngredient({...ingredient, image: e.target.files[0]});
@@ -65,9 +82,7 @@ const IngredientForm = ({ history, from, createIngredient }) => {
         })
     }
 
-    
-
-    const { name, image, _id, season, type } = ingredient;
+    const { name, image, season, type } = ingredient;
     
     const handleSubmit = () => {
         if ( !name || !image || !season || !type ) {
@@ -77,7 +92,7 @@ const IngredientForm = ({ history, from, createIngredient }) => {
         if ( from === 'add' ) {
             createIngredient(ingredient);
         } else {
-            console.log('update');
+            updateIngredient(ingredient, selectedIngredient._id)
         }
 
         setIngredient(initialState);
@@ -86,7 +101,7 @@ const IngredientForm = ({ history, from, createIngredient }) => {
     
 
     return (
-        <div className="chef-fields">
+        <div className="chef-fields" ref={ form }>
             <ImageForm from={from} previewImage={previewImage} image={image}
                 handleImageChange={handleImageChange} clearImage={clearImage} />
             
@@ -100,7 +115,7 @@ const IngredientForm = ({ history, from, createIngredient }) => {
                     </div>
 
                     <div className="type-radio-container">
-                        <TypeForm FOOD_GROUPS={FOOD_GROUPS} 
+                        <TypeForm FOOD_GROUPS={FOOD_GROUPS} selectedValue={type}
                             handleIngredientChange={handleIngredientChange} 
                         />
                     </div>
@@ -115,11 +130,11 @@ const IngredientForm = ({ history, from, createIngredient }) => {
             </div>
             <div className="form-btn-container">
                 <button className='submit' onClick={handleSubmit}>
-                    Add New Ingredient
+                    { from === 'update' ? 'Update Ingredient' : 'Add New Ingredient'}
                 </button>
             </div>
         </div>
     )
 }
 
-export default connect(null, { createIngredient })( withRouter(IngredientForm) );
+export default connect(null, { createIngredient, updateIngredient })( withRouter(IngredientForm) );

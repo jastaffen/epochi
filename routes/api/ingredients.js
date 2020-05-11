@@ -157,4 +157,42 @@ router.get('/recipes/:ingredient_id', async (req,res) => {
     }
 });
 
+// @action          PATCH
+// desc             UPDATE AN INGREDIENT    
+// access           public
+router.patch('/edit-ingredient/:ingredient_id', upload.single('image'), async (req, res) => {
+    const { name, type, season } = req.body;
+    let image;
+    if (req.file) {
+        image = req.file.path;
+    }
+
+    let ingredientFields = {};
+    if (name) ingredientFields.name = name;
+    if (type) ingredientFields.type = type;
+    if (season) ingredientFields.season = season;
+    if (image) ingredientFields.image = image;
+
+    try {
+        let ingredientForUpdate = await Ingredient.findById(req.params.ingredient_id);
+        if (!ingredientForUpdate) {
+            return res.status(400).json({ msg: 'Chef Not Found' });
+        }
+
+        ingredient = await Ingredient.findOneAndUpdate(
+                    { _id: req.params.ingredient_id }, 
+                    { $set: ingredientFields }, 
+                    { new: true }
+                ).catch(err => res.status(400).json({ msg: err }));
+        return res.json(ingredient);
+
+    } catch (err) {
+        console.error(err.message);
+        if (err.path === '_id') {
+            return res.status(400).json({ msg: 'Ingredient Not Found' });
+        }
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;

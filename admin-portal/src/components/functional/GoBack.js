@@ -1,13 +1,13 @@
 import React from 'react';
 
-const GoBack = ({ history }) => {
+const GoBack = ({ history, itemType }) => {
     const { location: { pathname } } = history;
 
     const goBack = () => {
-        if ( pathname === '/add-chef' || pathname === '/add-ingredient' ) {
+        if ( pathname === `/add-${itemType}`) {
             history.push('/dashboard');
-        } else if ( pathname.includes('/edit-chef') ) {
-            history.push('/add-chef');
+        } else if ( pathname.includes(`/edit-${itemType}`) ) {
+            history.push(`/add-${itemType}`);
         }
     }
     return (

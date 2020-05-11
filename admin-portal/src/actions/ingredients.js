@@ -1,4 +1,4 @@
-import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT } from './types';
+import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT, PATCH_INGREDIENT } from './types';
 import axios from 'axios';
 
 export const getAllIngredients = () => async dispatch => {
@@ -60,5 +60,38 @@ export const selectIngredient = ingredientId => async dispatch => {
             type: INGREDIENT_ERROR,
             payload: err
         })
+    }
+}
+
+export const updateIngredient = (ingredient, id) => async dispatch => {
+    const fd = new FormData();
+    const { name, season, type, image } = ingredient;
+    fd.append('name', name);
+    fd.append('type', type);
+    fd.append('season', season);
+    fd.append('image', image);
+    const config = {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Accept": "*/*"
+          }
+    }
+    try {
+        dispatch({
+            type: INGREDIENTS_LOADING
+        });
+        const res = await axios
+            .patch(`http://localhost:5400/api/ingredients/edit-ingredient/${id}`, 
+                fd, config);
+        dispatch({
+            type: PATCH_INGREDIENT,
+            payload: res.data
+        });
+
+    } catch (err) {
+        dispatch({
+            type: INGREDIENT_ERROR,
+            payload: err
+        });
     }
 }

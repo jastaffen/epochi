@@ -10,7 +10,7 @@ const AddOrUpdateIngredient = ( { history } ) => {
 
     return (
         <div className="item-container" >
-            <GoBack history={history} />
+            <GoBack history={history} itemType="ingredient" />
             <AllIngredients />
 
             {!showAddForm ? 

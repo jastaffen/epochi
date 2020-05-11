@@ -21,7 +21,6 @@ const ChefForm = ( { history, from, selectedChef, addChef, updateChef,
     }
 
     const [ previewAvatar, setPreviewAvatar ] = useState(false);
-
     const [ chef, setChef ] = useState(initialState);
 
     useEffect(() => {

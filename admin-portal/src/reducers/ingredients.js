@@ -1,4 +1,4 @@
-import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT } from '../actions/types';
+import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT, PATCH_INGREDIENT } from '../actions/types';
 
 const initialState = {
     allIngredients: [],
@@ -34,6 +34,16 @@ export default function( state = initialState, action ) {
             return {
                 ...state,
                 selectedIngredient: payload,
+                loading: false
+            }
+            
+        case PATCH_INGREDIENT:
+            const ingredientsWithUpdated = [...state.allIngredients].map(ingredient => {
+                return ingredient._id === payload._id ? payload : ingredient;
+            });
+            return {
+                ...state,
+                allIngredients: ingredientsWithUpdated,
                 loading: false
             }
             
