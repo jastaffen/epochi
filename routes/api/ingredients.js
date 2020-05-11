@@ -167,10 +167,12 @@ router.patch('/edit-ingredient/:ingredient_id', upload.single('image'), async (r
         image = req.file.path;
     }
 
+    let seasonArr = season.split(',')
+
     let ingredientFields = {};
     if (name) ingredientFields.name = name;
     if (type) ingredientFields.type = type;
-    if (season) ingredientFields.season = season;
+    if (season) ingredientFields.season = seasonArr;
     if (image) ingredientFields.image = image;
 
     try {

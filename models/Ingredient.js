@@ -7,8 +7,7 @@ const IngredientSchema = new Schema({
         required: true
     },
     season: {
-        type: [String],
-        required: true
+        type: []
     },
     mostActive: {
         type: String

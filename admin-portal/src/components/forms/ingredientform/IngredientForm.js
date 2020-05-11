@@ -63,8 +63,8 @@ const IngredientForm = ({ history, from, createIngredient, selectedIngredient, u
         if (!season.includes(month)) {
             setIngredient({
                 ...ingredient,
-                season: [ ...season, month ]
-            })
+                season: [...season, month]
+            });
         } else {
             let months = ingredient.season;
             let seasonWOutToggledMonth = [...months].filter(m => m !== month);

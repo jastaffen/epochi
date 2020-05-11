@@ -3,6 +3,13 @@ import React, { useEffect } from 'react';
 import FormField from '../FormField';
 
 const SeasonForm = ({ MONTHS, handleMonthSelect, season }) => {
+    const selectedMonths = (month) => {
+        if (season.includes(month)) {
+            return 'month selected'
+        } else {
+            return 'month'
+        }
+    }
     
     return (
         <div className="season-container">
@@ -11,7 +18,7 @@ const SeasonForm = ({ MONTHS, handleMonthSelect, season }) => {
             </span>
             <div className="months-container">
             { MONTHS.map(month => (
-                <div className={ season.includes(month) ? 'month selected' : 'month' } 
+                <div className={ selectedMonths(month) } 
                     key={month} onClick={() => handleMonthSelect(month)}
                 >
                     <span>{month}</span>
