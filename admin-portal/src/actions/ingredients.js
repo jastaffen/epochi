@@ -1,4 +1,4 @@
-import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT } from './types';
+import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT } from './types';
 import axios from 'axios';
 
 export const getAllIngredients = () => async dispatch => {
@@ -17,7 +17,6 @@ export const getAllIngredients = () => async dispatch => {
 }
 
 export const createIngredient = ingredient => async dispatch => {
-    debugger;
     const fd = new FormData();
     const { name, type, season, image } = ingredient;
     fd.append('type', type);
@@ -30,11 +29,9 @@ export const createIngredient = ingredient => async dispatch => {
             "Accept": "*/*"
           }
     }
-    debugger;
     try {
         const res = await axios
             .post('http://localhost:5400/api/ingredients', fd, config);
-        debugger;
         dispatch({
             type: CREATE_INGREDIENT,
             payload: res.data
@@ -44,5 +41,24 @@ export const createIngredient = ingredient => async dispatch => {
             type: INGREDIENT_ERROR,
             payload: err
         });
+    }
+}
+
+export const selectIngredient = ingredientId => async dispatch => {
+    try {
+        dispatch({
+            type: INGREDIENTS_LOADING
+        });
+        const res = await axios
+            .get(`http://localhost:5400/api/ingredients/ingredient/${ingredientId}`);
+        dispatch({
+            type: SELECT_INGREDIENT,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: INGREDIENT_ERROR,
+            payload: err
+        })
     }
 }
