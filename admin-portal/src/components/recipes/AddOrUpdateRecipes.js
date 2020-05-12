@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import GoBack from '../functional/GoBack';
+import AllRecipes from './AllRecipes';
 
 const AddOrUpdateRecipes = ({ history }) => {
     const [ showAddForm, setShowAddForm ] = useState(false);
@@ -9,7 +10,7 @@ const AddOrUpdateRecipes = ({ history }) => {
     return (
         <div className="item-container" >
             <GoBack history={history} itemType="recipe" />
-            {/* <AllIngredients /> */}
+            <AllRecipes />
 
             {!showAddForm ? 
                 <button className="button" 

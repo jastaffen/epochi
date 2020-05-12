@@ -24,9 +24,9 @@ const AllItems = ({ itemType, items, selectIngredient }) => {
                     <div className="item-card">
                         <img className="circle-image" 
                             src={`${ITEM_URL}${configureImageURL(item.image)}`} 
-                                alt={item.name} 
+                                alt={ item.name || item.title } 
                         />
-                        <h5>{ item.name }</h5>
+                        <h5>{ item.name || item.title }</h5>
                 </div>
             </Link> 
         ))}
