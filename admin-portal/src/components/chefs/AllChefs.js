@@ -9,8 +9,10 @@ import { CHEF_URL, configureImageURL } from '../../utils/imageDirectories';
 const AllChefs = ({ getAllChefs, chefs: { loading, allChefs }, selectChef }) => {
 
     useEffect(() => {
-        getAllChefs()
-    }, [ getAllChefs ]);
+        if (allChefs.length === 0) {
+            getAllChefs()
+        }
+    }, [ getAllChefs, allChefs.length ]);
 
     return (
         <div className="ac-container">

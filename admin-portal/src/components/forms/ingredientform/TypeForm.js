@@ -2,7 +2,7 @@ import React from 'react';
 
 import FormField from '../FormField';
 
-const TypeForm = ({ FOOD_GROUPS, handleIngredientChange }) => (
+const TypeForm = ({ FOOD_GROUPS, handleIngredientChange, selectedValue }) => (
     <div className="food-group-container"> 
         <span>Check One of the Below:</span>
         <div className="groups-container">
@@ -11,7 +11,7 @@ const TypeForm = ({ FOOD_GROUPS, handleIngredientChange }) => (
             <label>
                 { group }
                 <FormField type='radio' name="type" value={group} 
-                handleChange={handleIngredientChange} />
+                handleChange={handleIngredientChange} checked={group === selectedValue} />
             </label>
         </div>
         ))}
