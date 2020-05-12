@@ -9,9 +9,10 @@ import SeasonForm from './SeasonForm';
 import TypeForm from './TypeForm';
 import FormField from '../FormField';
 
-import { createIngredient, updateIngredient } from '../../../actions/ingredients';
+import { createIngredient, updateIngredient, deselectIngredient } from '../../../actions/ingredients';
 
-const IngredientForm = ({ history, from, createIngredient, selectedIngredient, updateIngredient }) => {
+const IngredientForm = ({ history, from, createIngredient, 
+    selectedIngredient, updateIngredient, deselectIngredient }) => {
     const form = useRef();
     
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 
@@ -96,9 +97,13 @@ const IngredientForm = ({ history, from, createIngredient, selectedIngredient, u
         }
 
         setIngredient(initialState);
+        deselectIngredient();
         history.push('/add-ingredient')
     }
     
+    const handleDelete = () => {
+        console.log('delete')
+    }
 
     return (
         <div className="chef-fields" ref={ form }>
@@ -132,9 +137,20 @@ const IngredientForm = ({ history, from, createIngredient, selectedIngredient, u
                 <button className='submit' onClick={handleSubmit}>
                     { from === 'update' ? 'Update Ingredient' : 'Add New Ingredient'}
                 </button>
+                { from === 'update' && (
+
+                <button className='submit delete' onClick={handleDelete} >
+                    Delete Ingredient
+                </button>
+
+                )}
             </div>
         </div>
     )
 }
 
-export default connect(null, { createIngredient, updateIngredient })( withRouter(IngredientForm) );
+export default connect(null, 
+    { 
+        createIngredient, updateIngredient, deselectIngredient 
+    })
+        ( withRouter(IngredientForm) );

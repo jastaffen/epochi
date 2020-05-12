@@ -1,4 +1,4 @@
-import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT, PATCH_INGREDIENT } from './types';
+import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT, PATCH_INGREDIENT, DESELECT_INGREDIENT } from './types';
 import axios from 'axios';
 
 export const getAllIngredients = () => async dispatch => {
@@ -94,4 +94,8 @@ export const updateIngredient = (ingredient, id) => async dispatch => {
             payload: err
         });
     }
+}
+
+export const deselectIngredient = () => dispatch => {
+    dispatch({ type: DESELECT_INGREDIENT })
 }

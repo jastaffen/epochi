@@ -1,4 +1,6 @@
-import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT, PATCH_INGREDIENT } from '../actions/types';
+import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, 
+    INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT, 
+    PATCH_INGREDIENT, DESELECT_INGREDIENT } from '../actions/types';
 
 const initialState = {
     allIngredients: [],
@@ -45,6 +47,12 @@ export default function( state = initialState, action ) {
                 ...state,
                 allIngredients: ingredientsWithUpdated,
                 loading: false
+            }
+        
+        case DESELECT_INGREDIENT:
+            return {
+                ...state,
+                selectedIngredient: {}
             }
             
         case INGREDIENT_ERROR: 

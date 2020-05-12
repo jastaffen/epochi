@@ -7,7 +7,9 @@ import AllItems from '../AllItems';
 
 const AllIngredients = ({ getAllIngredients, ingredients: { loading, allIngredients } }) => {
     useEffect(() => {
-        getAllIngredients()
+        if (allIngredients.length === 0) {
+            getAllIngredients();
+        }
     }, [ getAllIngredients ]);
 
 
