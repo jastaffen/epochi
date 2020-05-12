@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import FormField from '../FormField';
 
 const SeasonForm = ({ MONTHS, handleMonthSelect, season }) => {
     const selectedMonths = (month) => {

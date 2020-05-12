@@ -8,8 +8,8 @@ import { CHEF_URL, configureImageURL } from '../../utils/imageDirectories';
 import FormField from './FormField';
 
 
-const ChefForm = ( { history, from, selectedChef, addChef, updateChef, 
-        deselectChef, deleteChef } ) => {
+const ChefForm = ( { history, from, selectedChef, addChef, 
+    updateChef, deselectChef, deleteChef } ) => {
     
     const form = useRef();
 
@@ -33,16 +33,16 @@ const ChefForm = ( { history, from, selectedChef, addChef, updateChef,
             const { name, avatar, bio } = selectedChef;
             const nameArr = name.split(' ');
             if (from === 'update') {
-            setChef({
-                firstName: nameArr[0],
-                lastName: nameArr[1],
-                avatar,
-                bio
-            });
-        }
+                setChef({
+                    firstName: nameArr[0],
+                    lastName: nameArr[1],
+                    avatar,
+                    bio
+                });
+            }
         }
         
-    }, [ selectedChef ])
+    }, [ selectedChef, from ])
 
     const handleChange = e => {
         setChef({
@@ -59,7 +59,7 @@ const ChefForm = ( { history, from, selectedChef, addChef, updateChef,
     const handleImageDisplay = () => {
         if (from === 'update' && !previewAvatar) {
             return CHEF_URL + configureImageURL(avatar);
-        } else if (from === 'update' && previewAvatar || from === 'add' && previewAvatar) {
+        } else if ((from === 'update' || from === 'add') && previewAvatar) {
             return URL.createObjectURL(avatar);
         } 
     }

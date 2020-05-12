@@ -41,9 +41,4 @@ const  App = () => {
 
 export default App;
 
-{/* <AddIngredient />
-        <AllIngredients />
-        <AddChef />
-        <AllChefs />
-        <AddRecipe />
-        <AllRecipes /> */}
+

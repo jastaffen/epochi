@@ -10,7 +10,7 @@ const AllIngredients = ({ getAllIngredients, ingredients: { loading, allIngredie
         if (allIngredients.length === 0) {
             getAllIngredients();
         }
-    }, [ getAllIngredients ]);
+    }, [ getAllIngredients, allIngredients.length ]);
 
 
     return (
