@@ -17,7 +17,6 @@ const Dashboard = () => {
 
             <div className="navbar">
                 <h1>Welcome</h1>
-                <p>What would you like to do?</p>
                 
                 <div className="button-container">
                     
@@ -45,8 +44,11 @@ const Dashboard = () => {
                     <hr />
 
                     <div className="flex-button">
-                        <button className="button">Add a recipe</button>
-                        <button className="button">Edit a recipe</button>
+                        <Link to="/add-recipe">
+                            <button className="button">
+                                Add or Update Recipes
+                            </button>
+                        </Link>
                     </div>
 
                     <hr />

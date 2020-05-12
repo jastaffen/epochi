@@ -11,7 +11,6 @@ const Ingredient = require('../../models/Ingredient');
 // access           private/though accessible without auth at the moment
 router.post('/recipe/:chef_id/:ingredient_id', [
     check('title', 'Title is required').not().isEmpty(),
-    check('image', 'Image is required').not().isEmpty(),
     check('instructions', 'Instructions are required').not().isEmpty()
 ], async (req, res) => {
     const errors = validationResult(req);
@@ -80,6 +79,18 @@ router.get('/', async (req, res) => {
     }
 });
 
+// @action          GET
+// desc             GET ALL RECIPE NAMES AND IMAGES
+// access           Public
+router.get('/minimal', async (req, res) => {
+    try {
+        let recipes = await Recipe.find().select('title image');
+        res.json(recipes);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error')
+    }
+});
 
 // @action          GET
 // desc             GET RECIPE BY ID

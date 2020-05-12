@@ -15,6 +15,7 @@ import ChefSelectionMenu from './components/chefs/ChefSelectionMenu';
 import UpdateChef from './components/chefs/UpdateChef';
 import AddOrUpdateIngredient from './components/ingredients/AddOrUpdateIngredient';
 import UpdateIngredient from './components/ingredients/UpdateIngredient';
+import AddOrUpdateRecipes from './components/recipes/AddOrUpdateRecipes';
 
 const  App = () => {
   return (
@@ -32,6 +33,9 @@ const  App = () => {
           {/* ingredient routes */}
           <PrivateRoute exact path="/add-ingredient" component={AddOrUpdateIngredient} />
           <PrivateRoute exact path="/edit-ingredient/:ingredient_id" component={UpdateIngredient} />
+
+          {/* recipe routes */}
+          <PrivateRoute exact path="/add-recipe" component={AddOrUpdateRecipes} />
         </Switch>
       </Router>
     </Provider>
