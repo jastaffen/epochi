@@ -1,6 +1,6 @@
 import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, 
     INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT, 
-    PATCH_INGREDIENT, DESELECT_INGREDIENT } from '../actions/types';
+    PATCH_INGREDIENT, DESELECT_INGREDIENT, DELETE_INGREDIENT } from '../actions/types';
 
 const initialState = {
     allIngredients: [],
@@ -53,6 +53,14 @@ export default function( state = initialState, action ) {
             return {
                 ...state,
                 selectedIngredient: {}
+            }
+
+        case DELETE_INGREDIENT:
+            const allIngredientsWithoutDeleted = [...state.allIngredients]
+                .filter(ingredient => ingredient._id !== payload._id);
+            return {
+                ...state,
+                allIngredients: allIngredientsWithoutDeleted
             }
             
         case INGREDIENT_ERROR: 

@@ -1,4 +1,4 @@
-import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT, PATCH_INGREDIENT, DESELECT_INGREDIENT } from './types';
+import { GET_ALL_INGREDIENTS, INGREDIENTS_LOADING, INGREDIENT_ERROR, CREATE_INGREDIENT, SELECT_INGREDIENT, PATCH_INGREDIENT, DESELECT_INGREDIENT, DELETE_INGREDIENT } from './types';
 import axios from 'axios';
 
 export const getAllIngredients = () => async dispatch => {
@@ -98,4 +98,19 @@ export const updateIngredient = (ingredient, id) => async dispatch => {
 
 export const deselectIngredient = () => dispatch => {
     dispatch({ type: DESELECT_INGREDIENT })
+}
+
+export const deleteIngredient = id => async dispatch => {
+    try {
+        const res = await axios.delete(`http://localhost:5400/api/ingredients/${id}`);
+        dispatch({
+            type: DELETE_INGREDIENT,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: INGREDIENT_ERROR,
+            payload: err
+        });
+    }
 }

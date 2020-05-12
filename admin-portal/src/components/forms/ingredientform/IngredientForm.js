@@ -9,10 +9,12 @@ import SeasonForm from './SeasonForm';
 import TypeForm from './TypeForm';
 import FormField from '../FormField';
 
-import { createIngredient, updateIngredient, deselectIngredient } from '../../../actions/ingredients';
+import { createIngredient, updateIngredient, 
+    deselectIngredient, deleteIngredient } from '../../../actions/ingredients';
 
 const IngredientForm = ({ history, from, createIngredient, 
-    selectedIngredient, updateIngredient, deselectIngredient }) => {
+    selectedIngredient, updateIngredient, deselectIngredient,
+    deleteIngredient }) => {
     const form = useRef();
     
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 
@@ -102,7 +104,9 @@ const IngredientForm = ({ history, from, createIngredient,
     }
     
     const handleDelete = () => {
-        console.log('delete')
+        deleteIngredient(selectedIngredient._id);
+        deselectIngredient();
+        history.push('/add-ingredient');
     }
 
     return (
@@ -151,6 +155,7 @@ const IngredientForm = ({ history, from, createIngredient,
 
 export default connect(null, 
     { 
-        createIngredient, updateIngredient, deselectIngredient 
+        createIngredient, updateIngredient, deselectIngredient,
+        deleteIngredient 
     })
         ( withRouter(IngredientForm) );

@@ -197,4 +197,14 @@ router.patch('/edit-ingredient/:ingredient_id', upload.single('image'), async (r
     }
 });
 
+router.delete('/:ingredient_id', async (req, res) => {
+    try {
+        const deletedChef = await Ingredient.findOneAndRemove({ _id: req.params.ingredient_id });
+        res.json(deletedChef);
+    } catch (err) {
+        res.status(500).send('Server Error')
+    }
+    
+});
+
 module.exports = router;
