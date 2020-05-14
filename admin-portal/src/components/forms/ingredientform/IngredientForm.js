@@ -110,7 +110,7 @@ const IngredientForm = ({ history, from, createIngredient,
     return (
         <div className="chef-fields" ref={ form }>
             <ImageForm from={from} previewImage={previewImage} image={image}
-                handleImageChange={handleImageChange} clearImage={clearImage} />
+                handleImageChange={handleImageChange} clearImage={clearImage} derived='ingredient' />
             
             <div className="ing-info-fields">
                 <div className="name-and-type">

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import GoBack from '../functional/GoBack';
 import AllRecipes from './AllRecipes';
+import RecipeForm from '../forms/recipeform/RecipeForm';
 
 const AddOrUpdateRecipes = ({ history }) => {
     const [ showAddForm, setShowAddForm ] = useState(false);
@@ -17,7 +18,8 @@ const AddOrUpdateRecipes = ({ history }) => {
                     onClick={() => setShowAddForm(true)}>
                         Add A New Recipe
                 </button> 
-            : null
+            : 
+            <RecipeForm from='add' />
             }
         </div>
     )
