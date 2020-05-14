@@ -269,3 +269,56 @@ textarea {
     display: block;
     cursor: pointer;
 }
+
+.radio-box-forms {
+    display: flex;
+}
+
+.radio-box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 5px 20px 5px;
+    margin: 20px;
+    background-color: white;
+    width: 200px;
+    height: 300px;
+    border: 1px solid black;
+}
+
+.radio-box-container h3 {
+    color: black;
+    margin: 0px;
+    text-align: center;
+}
+
+.radio-box {
+    height: auto;
+    border: 1px solid black;
+    margin: 10px;
+    overflow: scroll;
+}
+
+.card {
+    border-bottom: 1px solid black;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.card span {
+    color: black;
+    text-align: center;
+}
+
+.selected {
+    background-color: #3702E8;
+}
+
+.selected span {
+    color: white;
+}
+
+.search {
+    width: 150px;
+    height: 15px;
+}

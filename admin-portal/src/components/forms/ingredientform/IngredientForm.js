@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ImageForm from './ImageForm';
+import ImageForm from '../ImageForm';
 import SeasonForm from './SeasonForm';
 import TypeForm from './TypeForm';
 import FormField from '../FormField';
