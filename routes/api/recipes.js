@@ -1,6 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/recipes');
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+});
+
+const upload = multer({ storage});
 
 const Recipe = require('../../models/Recipe');
 const Chef = require('../../models/Chef');
@@ -9,7 +21,7 @@ const Ingredient = require('../../models/Ingredient');
 // @action          POST
 // desc             register a Recipe
 // access           private/though accessible without auth at the moment
-router.post('/recipe/:chef_id/:ingredient_id', [
+router.post('/recipe/:chef_id/:ingredient_id', upload.single('image'), [
     check('title', 'Title is required').not().isEmpty(),
     check('instructions', 'Instructions are required').not().isEmpty()
 ], async (req, res) => {
@@ -18,9 +30,10 @@ router.post('/recipe/:chef_id/:ingredient_id', [
     if (!errors.isEmpty()) {
         res.status(400).json({ errors: errors.array() });
     }
-
+    const image = req.file.path;
     const { chef_id, ingredient_id } = req.params;
-    const { title, image, instructions, ingredients, video, description, published } = req.body;
+    const { title, instructions, ingredients, 
+        video, description } = req.body;
 
     try {
         // make sure recipe with particular title hasn't already been declared
@@ -31,7 +44,8 @@ router.post('/recipe/:chef_id/:ingredient_id', [
 
         // create recipe instance
         let newRecipe = new Recipe({
-            title, image, instructions, ingredients, video, description, published
+            title, image, instructions, ingredients, 
+            video, description, published
         });
         // assign chef as recipe author but make sure chef_id exists 
         const chef = await Chef.findById(chef_id);
