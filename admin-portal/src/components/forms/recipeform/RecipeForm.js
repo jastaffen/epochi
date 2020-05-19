@@ -4,6 +4,10 @@ import ImageForm from '../ImageForm';
 import FormField from '../FormField';
 import ChefSelect from './ChefSelect';
 import IngredientSelect from './IngredientSelect';
+import Ingredients from './Ingredients';
+import IngredientList from './IngredientList';
+import InstructionForm from './InstructionForm';
+import InstructionList from './InstructionList';
 
 const RecipeForm = ({ from }) => {
     const form = useRef();
@@ -20,6 +24,7 @@ const RecipeForm = ({ from }) => {
 
     const [ recipe, setRecipe ] = useState(initialState);
     const [ previewImage, setPreviewImage ] = useState(false);
+    const [ ingEdit, setIngEdit ] = useState(null);
 
     const clearImage = () => {
         setRecipe({ ...recipe, image: '' });
@@ -43,6 +48,37 @@ const RecipeForm = ({ from }) => {
         setRecipe({ ...recipe, ingredientId })
     }
 
+    const addToIngredients = (ingredient, edit=false) => {
+        if (edit) {
+            let updatedIngredients = [...recipe.ingredients].map(ing => {
+                if (ing.id === ingredient.id) {
+                    return ingredient;
+                } else {
+                    return ing;
+                }
+            });
+            setRecipe({ ...recipe, ingredients: updatedIngredients });
+            setIngEdit(null);
+        } else {
+            setRecipe({...recipe, 
+                ingredients: [...recipe.ingredients, ingredient]
+            });
+        }
+        
+    }
+
+    const removeIngredient = ingredient => {
+        const ingredientsWithoutIngredient = [...recipe.ingredients].filter(ing => ing.id !== ingredient.id);
+        setRecipe({
+            ...recipe,
+            ingredients: ingredientsWithoutIngredient
+        });
+    }
+
+    const appendInstruction = instruction => {
+        setRecipe({...recipe, instructions: [...recipe.instructions, instruction]});
+    }
+
     useEffect(() => {
         form.current.scrollIntoView()
     }, []);
@@ -53,7 +89,7 @@ const RecipeForm = ({ from }) => {
     return (
         <div className="chef-fields" ref={ form }>
             <ImageForm derived="recipe" previewImage={previewImage} 
-                from={from} previewImage={previewImage} image={image}
+                from={from} image={image}
                 handleImageChange={handleImageChange} clearImage={clearImage} 
             />
 
@@ -79,7 +115,23 @@ const RecipeForm = ({ from }) => {
                     setIngredient={setIngredient} 
                 />
             </div>
-            
+            <div className="ingredients-container">
+
+                <IngredientList ingredients={ingredients} 
+                    setIngEdit={setIngEdit} 
+                    removeIngredient={removeIngredient} 
+                />
+                <Ingredients addToIngredients={addToIngredients} ingEdit={ingEdit} />
+            </div>
+            <hr id="line-break" />
+            <div>
+                <h3>INSTRUCTIONS</h3>
+                <div className="instructions-container">  
+                    <InstructionList instructions={instructions} />
+                    <InstructionForm appendInstruction={appendInstruction} />
+                </div>
+                
+            </div>
         </div>
     )
 }

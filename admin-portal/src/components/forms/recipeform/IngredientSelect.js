@@ -36,7 +36,7 @@ const IngredientSelect = ({ getAllIngredients,
 
     return (
         <div className="radio-box-container">
-            <h3>Choose an Ingredient</h3>
+            <h3>Choose an Ingredient to Showcase</h3>
             <input type="text" className="search" value={searchText}
                 placeholder="Search ingredient..."
                 onChange={e => setSearchText(e.target.value)} 
