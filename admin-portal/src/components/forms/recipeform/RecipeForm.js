@@ -25,6 +25,7 @@ const RecipeForm = ({ from }) => {
     const [ recipe, setRecipe ] = useState(initialState);
     const [ previewImage, setPreviewImage ] = useState(false);
     const [ ingEdit, setIngEdit ] = useState(null);
+    const [ instEdit, setInstEdit ] = useState(null);
 
     const clearImage = () => {
         setRecipe({ ...recipe, image: '' });
@@ -75,8 +76,33 @@ const RecipeForm = ({ from }) => {
         });
     }
 
-    const appendInstruction = instruction => {
+    const appendInstruction = (instruction, edit=false) => {
+        if (edit) {
+            let instructionsWithEdit = [...recipe.instructions].map(inst => {
+                return inst.id === instruction.id ? instruction : inst;
+            });
+            setRecipe({ ...recipe, instructions: instructionsWithEdit });
+            return setInstEdit(null)
+        }
         setRecipe({...recipe, instructions: [...recipe.instructions, instruction]});
+    }
+
+    const moveUp = index => {
+        const copy = [...recipe.instructions];
+        const instruction = copy[index];
+        const prevHolder = copy[index - 1];
+        copy[index - 1] = instruction;
+        copy[index] = prevHolder;
+        setRecipe({ ...recipe, instructions: copy })
+    }
+
+    const moveDown = index => {
+        const copy = [...recipe.instructions];
+        const instruction = copy[index];
+        const postHolder = copy[index + 1];
+        copy[index + 1] = instruction;
+        copy[index] = postHolder;
+        setRecipe({ ...recipe, instructions: copy });
     }
 
     useEffect(() => {
@@ -85,6 +111,7 @@ const RecipeForm = ({ from }) => {
 
     const { title, image, description, 
         instructions, ingredients, chefId, ingredientId } = recipe;
+    
     
     return (
         <div className="chef-fields" ref={ form }>
@@ -127,8 +154,10 @@ const RecipeForm = ({ from }) => {
             <div>
                 <h3>INSTRUCTIONS</h3>
                 <div className="instructions-container">  
-                    <InstructionList instructions={instructions} />
-                    <InstructionForm appendInstruction={appendInstruction} />
+                    <InstructionList instructions={instructions} 
+                        setInstEdit={setInstEdit} moveUp={moveUp} moveDown={moveDown}
+                    />
+                    <InstructionForm appendInstruction={appendInstruction} instEdit={instEdit} />
                 </div>
                 
             </div>

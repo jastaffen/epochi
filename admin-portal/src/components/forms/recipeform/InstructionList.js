@@ -1,25 +1,42 @@
 import React, { useState } from 'react';
 
-const InstructionList = ({ instructions }) => {
+const InstructionList = ({ instructions, setInstEdit, 
+    moveUp, moveDown }) => {
+
     if (instructions.length === 0) {
         return (
         <div>
             <span>No instructions have been added yet</span>
         </div>
         )} 
-
+    
     const renderedInstructions = instructions.map((instruction, index) => (
-        <div key={instruction}>
-            <button>|||</button>
-            <span>{`${index + 1}.) `}  {instruction}</span>
-            <button>Edit</button>
+        <div key={instruction.body} className="instruction-card">
+            {`${index + 1}.) `}  
+            <div className="info">
+                <span>{instruction.body}</span>
+            </div>
+            <button onClick={() => setInstEdit(instruction)}>Edit</button>
             <button>x</button>
+            <div className="change-order">
+                {index !== 0 && 
+                    <button onClick={ () => moveUp(index) }>
+                        ↑
+                    </button> 
+                }
+
+                {instruction !== instructions[instructions.length - 1] && 
+                    <button onClick={ () => moveDown(index) } >
+                        ↓
+                    </button> }
+            </div>
+            
         </div>
     ))
 
     return (
-        <div className="instructions-box">
-            <div className="instruction-card">
+        <div className="instructions-box-container">
+            <div className="instruction-box">
                 {renderedInstructions}
             </div>
         </div>
