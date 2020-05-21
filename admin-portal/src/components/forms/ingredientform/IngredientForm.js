@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ImageForm from './ImageForm';
+import ImageForm from '../ImageForm';
 import SeasonForm from './SeasonForm';
 import TypeForm from './TypeForm';
 import FormField from '../FormField';
@@ -110,7 +110,7 @@ const IngredientForm = ({ history, from, createIngredient,
     return (
         <div className="chef-fields" ref={ form }>
             <ImageForm from={from} previewImage={previewImage} image={image}
-                handleImageChange={handleImageChange} clearImage={clearImage} />
+                handleImageChange={handleImageChange} clearImage={clearImage} derived='ingredient' />
             
             <div className="ing-info-fields">
                 <div className="name-and-type">

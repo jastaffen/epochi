@@ -88,7 +88,7 @@ router.get('/:month', async (req,res) => {
 // access           public
 router.get('/', async (req,res) => {
     try {
-        let ingredients = await Ingredient.find();
+        let ingredients = await Ingredient.find().select('name image');
 
         res.json(ingredients);
 

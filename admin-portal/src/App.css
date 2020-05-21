@@ -269,3 +269,175 @@ textarea {
     display: block;
     cursor: pointer;
 }
+
+.radio-box-forms {
+    display: flex;
+}
+
+.radio-box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 5px 20px 5px;
+    margin: 20px;
+    background-color: white;
+    width: 200px;
+    height: 300px;
+    border: 1px solid black;
+}
+
+.radio-box-container h3 {
+    color: black;
+    margin: 0px;
+    text-align: center;
+}
+
+.radio-box {
+    height: auto;
+    border: 1px solid black;
+    margin: 10px;
+    overflow: scroll;
+}
+
+.card {
+    border-bottom: 1px solid black;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.card span {
+    color: black;
+    text-align: center;
+}
+
+.selected {
+    background-color: #3702E8;
+}
+
+.selected span {
+    color: white;
+}
+
+.search {
+    width: 150px;
+    height: 15px;
+}
+
+.ingredients-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingredients-container .ingredient-list {
+    margin: 20px;
+}
+
+.ingredient-list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    width: 200px;
+    height: 100%;
+}
+
+.ingredient-list h3, p {
+    color: black;
+    /* border-bottom: 1px solid black; */
+    width: 80%;
+    text-align: center;
+}
+
+.ingredient-list div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+    height: 50px;
+}
+
+.ingredient-list div:last-child {
+    border-bottom: none;
+}
+
+.ingredient-list div span {
+    color: black;
+    width: 130px;
+    font-size: 12px;
+    overflow: scroll;
+}
+
+.ingredient-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#additional-notes {
+    width: 100px;
+}
+
+#line-break {
+    width: 1000px;
+    overflow-x: none;
+}
+
+.instructions-container {
+    display: flex;
+    width: 600px;
+    justify-content: space-between;
+}
+
+.instructions-box-container {
+    margin-right: 20px;
+}
+
+.instruction-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid white;
+}
+
+.info {
+    width: 100px;
+    overflow-x: scroll;
+}
+
+.info::-webkit-scrollbar {
+    height: 1px;
+}
+
+
+.info::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    height: 10px;
+}
+
+.instruction-form {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.instruction {
+    width: 120px;
+    height: 150px;
+}
+
+.change-order {
+    /* background-color: white; */
+    width: 50px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.change-order button {
+    background: #3702E8;
+    color: white;
+    border: none;
+    outline: none;
+}
