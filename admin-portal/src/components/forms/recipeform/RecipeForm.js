@@ -87,6 +87,13 @@ const RecipeForm = ({ from }) => {
         setRecipe({...recipe, instructions: [...recipe.instructions, instruction]});
     }
 
+    const removeInstruction = instruction => {
+        let instructionsWithoutInstruction = [...recipe.instructions].filter(inst => (
+            inst.id !== instruction.id
+        ));
+        setRecipe({ ...recipe, instructions: instructionsWithoutInstruction }); 
+    } 
+
     const moveUp = index => {
         const copy = [...recipe.instructions];
         const instruction = copy[index];
@@ -111,7 +118,6 @@ const RecipeForm = ({ from }) => {
 
     const { title, image, description, 
         instructions, ingredients, chefId, ingredientId } = recipe;
-    
     
     return (
         <div className="chef-fields" ref={ form }>
@@ -148,7 +154,9 @@ const RecipeForm = ({ from }) => {
                     setIngEdit={setIngEdit} 
                     removeIngredient={removeIngredient} 
                 />
-                <Ingredients addToIngredients={addToIngredients} ingEdit={ingEdit} />
+                <Ingredients addToIngredients={addToIngredients} 
+                    ingEdit={ingEdit} 
+                />
             </div>
             <hr id="line-break" />
             <div>
@@ -156,8 +164,11 @@ const RecipeForm = ({ from }) => {
                 <div className="instructions-container">  
                     <InstructionList instructions={instructions} 
                         setInstEdit={setInstEdit} moveUp={moveUp} moveDown={moveDown}
+                        removeInstruction={removeInstruction}
                     />
-                    <InstructionForm appendInstruction={appendInstruction} instEdit={instEdit} />
+                    <InstructionForm appendInstruction={appendInstruction} 
+                        instEdit={instEdit} 
+                    />
                 </div>
                 
             </div>

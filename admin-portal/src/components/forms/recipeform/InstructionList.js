@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const InstructionList = ({ instructions, setInstEdit, 
-    moveUp, moveDown }) => {
+    moveUp, moveDown, removeInstruction }) => {
 
     if (instructions.length === 0) {
         return (
@@ -17,7 +17,8 @@ const InstructionList = ({ instructions, setInstEdit,
                 <span>{instruction.body}</span>
             </div>
             <button onClick={() => setInstEdit(instruction)}>Edit</button>
-            <button>x</button>
+            <button onClick={() => removeInstruction(instruction)}>x</button>
+
             <div className="change-order">
                 {index !== 0 && 
                     <button onClick={ () => moveUp(index) }>
