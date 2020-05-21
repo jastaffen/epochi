@@ -18,10 +18,21 @@ export const getAllRecipes = () => async dispatch => {
 }
 
 export const createRecipe = recipe => async dispatch => {
+    const { title, description, image, 
+        ingredientId, chefId, instructions, ingredients } = recipe;
+    
+    const instArr = instructions.map(inst => inst.body);
+    const ingsArr = [];
+    ingredients.map(ing => {
+        const { name, quanity, unit, additionalNotes } = ing;
+        ingsArr.push({ name, quanity, unit, additionalNotes });
+    })
     const fd = new FormData();
-    for (let key in recipe) {
-        fd.append(key, recipe[key]);
-    }
+    fd.append('title', title);
+    fd.append('description', description);
+    fd.append('image', image);
+    fd.append('instructions', instArr);
+    fd.append('ingredients', JSON.stringify(ingsArr));
     const config = {
         headers: {
             "Content-Type": "multipart/form-data",
@@ -30,7 +41,8 @@ export const createRecipe = recipe => async dispatch => {
     }
     try {
         const res = await axios
-            .post('http://localhost:5400/api/recipes', fd, config);
+            .post(`http://localhost:5400/api/recipes/${chefId}/${ingredientId}`, fd, config);
+        debugger;
         dispatch({
             type: CREATE_RECIPE,
             payload: res.data

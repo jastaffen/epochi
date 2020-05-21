@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+
+import { createRecipe } from '../../../actions/recipes';
 
 import ImageForm from '../ImageForm';
 import FormField from '../FormField';
@@ -9,7 +12,7 @@ import IngredientList from './IngredientList';
 import InstructionForm from './InstructionForm';
 import InstructionList from './InstructionList';
 
-const RecipeForm = ({ from }) => {
+const RecipeForm = ({ from, createRecipe }) => {
     const form = useRef();
 
     const initialState = {
@@ -26,6 +29,10 @@ const RecipeForm = ({ from }) => {
     const [ previewImage, setPreviewImage ] = useState(false);
     const [ ingEdit, setIngEdit ] = useState(null);
     const [ instEdit, setInstEdit ] = useState(null);
+
+    useEffect(() => {
+        form.current.scrollIntoView()
+    }, []);
 
     const clearImage = () => {
         setRecipe({ ...recipe, image: '' });
@@ -112,15 +119,21 @@ const RecipeForm = ({ from }) => {
         setRecipe({ ...recipe, instructions: copy });
     }
 
-    useEffect(() => {
-        form.current.scrollIntoView()
-    }, []);
-
     const { title, image, description, 
         instructions, ingredients, chefId, ingredientId } = recipe;
+
+    const handleSubmit = () => {
+        if (!title || !image || !description || !instructions || 
+            !ingredients || !chefId || !ingredientId) {
+            return alert('Empty fields')
+        }
+        createRecipe(recipe);
+        setRecipe(initialState);
+    }
     
     return (
         <div className="chef-fields" ref={ form }>
+
             <ImageForm derived="recipe" previewImage={previewImage} 
                 from={from} image={image}
                 handleImageChange={handleImageChange} clearImage={clearImage} 
@@ -157,6 +170,7 @@ const RecipeForm = ({ from }) => {
                 <Ingredients addToIngredients={addToIngredients} 
                     ingEdit={ingEdit} 
                 />
+
             </div>
             <hr id="line-break" />
             <div>
@@ -172,8 +186,21 @@ const RecipeForm = ({ from }) => {
                 </div>
                 
             </div>
+            <div className="form-btn-container">
+                <button className='submit' onClick={handleSubmit}>
+                    {from === 'update' ? 'Update Recipe' : 'Add New Recipe'}
+                </button>
+
+                { from === 'update' && (
+
+                <button className='submit delete'>
+                    Delete Recipe
+                </button>
+            
+                )}
+            </div>
         </div>
     )
 }
 
-export default RecipeForm;
+export default connect(null, { createRecipe })(RecipeForm);
